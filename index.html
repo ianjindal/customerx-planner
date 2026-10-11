@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Pick your sector and role to get a shortlist of CustomerX 2026 sessions, people to meet and questions to ask. Olympia London, 14 and 15 October.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CustomerX Day Planner">
+<meta property="og:description" content="Pick your sector and role to get a shortlist of CustomerX 2026 sessions, people to meet and questions to ask. Olympia London, 14 and 15 October.">
+<meta name="twitter:card" content="summary">
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}</style>
+<title>CustomerX Day Planner</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&display=swap">
+<style>
+body{margin:0}
+img{max-width:100%}
+
+/* Layout: a phone-width app column in CustomerX colours. Header with logo and Register button, two tap screens (sector, role), a plan with an expandable timeline, and a 4:5 share card for LinkedIn. */
+:root {
+  --bg: #ffffff;
+  --ink: #2b2b2b;
+  --navy: #253b48;
+  --pink: #e7338b;
+  --pink-ink: #c71f77;
+  --mute: #5b6770;
+  --line: #d9dee2;
+  --on-dark: #ffffff;
+  --font: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.5; padding-inline: 16px; padding-block: 0 40px; }
+button { font: inherit; color: inherit; }
+a { color: var(--navy); text-decoration-color: var(--pink); text-underline-offset: 3px; }
+a:hover { color: var(--pink-ink); }
+:focus-visible { outline: 3px solid var(--navy); outline-offset: 2px; }
+.app { max-width: 460px; margin-inline: auto; display: flex; flex-direction: column; }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-block: 10px; }
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.brand img { width: 30px; height: auto; display: block; flex: none; }
+.brand div { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+.brand b { font-size: 14px; color: var(--navy); font-weight: 700; }
+.brand small { font-size: 11px; color: var(--mute); }
+.reg { background: var(--pink); color: var(--on-dark); text-decoration: none; font-weight: 700; font-size: 14px; border-radius: 12px; padding: 9px 14px; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; min-height: 40px; }
+.reg:hover { background: var(--navy); color: var(--on-dark); }
+.reg.big { font-size: 18px; min-height: 54px; width: 100%; }
+.prog { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.prog i { height: 4px; background: var(--line); display: block; border-radius: 2px; }
+.prog i.on { background: var(--pink); }
+.navrow { min-height: 8px; }
+.back { background: var(--bg); border: 0; color: var(--navy); font-weight: 600; font-size: 14px; min-height: 44px; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-color: var(--pink); text-underline-offset: 4px; }
+.screen { display: flex; flex-direction: column; gap: 16px; padding-block: 14px 8px; }
+.kicker { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pink-ink); }
+h1 { font-size: clamp(1.6rem, 7vw, 2rem); line-height: 1.12; margin: 0; letter-spacing: -0.02em; text-wrap: balance; color: var(--navy); font-weight: 700; }
+h2 { font-size: 1.05rem; margin: 0; line-height: 1.3; text-wrap: balance; color: var(--navy); font-weight: 600; }
+p { margin: 0; }
+.hero { width: 132px; height: auto; display: block; }
+.lede { color: var(--mute); max-width: 44ch; }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.tiles > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+.tile { text-align: left; background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px; min-height: 86px; display: flex; flex-direction: column; justify-content: space-between; gap: 8px; cursor: pointer; }
+.tile:hover, .tile:active { border-color: var(--pink); }
+.tile b { font-size: 14px; line-height: 1.25; color: var(--navy); font-weight: 650; }
+.tile span { font-size: 12px; color: var(--mute); line-height: 1.35; overflow-wrap: anywhere; }
+.tile.sel { background: var(--navy); border-color: var(--navy); }
+.tile.sel b, .tile.sel span { color: var(--on-dark); }
+.crumb { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { background: var(--bg); border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; min-height: 38px; color: var(--navy); }
+.chip:hover { border-color: var(--pink); color: var(--pink-ink); }
+.seg { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid var(--navy); border-radius: 12px; overflow: hidden; }
+.seg button { background: var(--bg); border: 0; min-height: 46px; font-weight: 700; cursor: pointer; color: var(--navy); }
+.seg button + button { border-left: 1.5px solid var(--navy); }
+.seg button[aria-pressed="true"] { background: var(--navy); color: var(--on-dark); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--mute); align-items: center; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.mk { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--line); display: inline-block; flex: none; }
+.must .mk, .mk.must { background: var(--pink); border-color: var(--pink); }
+.worth .mk, .mk.worth { background: var(--bg); border-color: var(--pink); }
+.opt .mk, .mk.opt { background: var(--bg); border-color: var(--line); }
+.tl { display: flex; flex-direction: column; }
+.row { border-bottom: 1px solid var(--line); }
+.rowbtn { width: 100%; text-align: left; background: var(--bg); border: 0; display: grid; grid-template-columns: 3rem 14px minmax(0, 1fr) 14px; gap: 10px; align-items: start; padding: 12px 0; min-height: 56px; cursor: pointer; }
+.rt { font-weight: 700; font-variant-numeric: tabular-nums; font-size: 14px; color: var(--navy); }
+.rowbtn .mk { margin-top: 3px; }
+.rb { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.rtitle { font-weight: 600; font-size: 14px; line-height: 1.3; color: var(--navy); }
+.opt .rtitle { font-weight: 500; color: var(--mute); }
+.rsub { font-size: 11px; color: var(--mute); }
+.must .rsub { color: var(--pink-ink); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.chev { width: 8px; height: 8px; border-right: 2px solid var(--navy); border-bottom: 2px solid var(--navy); transform: rotate(45deg); margin-top: 6px; transition: transform 0.15s; }
+.rowbtn[aria-expanded="true"] .chev { transform: rotate(-135deg); margin-top: 10px; }
+.rdet { padding: 0 0 14px 3.9rem; display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
+.rdet h3 { margin: 0; font-size: 14px; line-height: 1.35; color: var(--navy); }
+.who { color: var(--mute); overflow-wrap: anywhere; }
+.ppl { margin: 8px 0 4px; }
+.ppl .pl { display: block; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--pink-ink); margin: 8px 0 2px; }
+.ppl ul { list-style: none; margin: 0; padding: 0; }
+.ppl li { color: var(--mute); margin: 2px 0; overflow-wrap: anywhere; }
+.ppl li b { color: var(--ink); font-weight: 600; }
+.lks { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 4px; }
+.lk { display: inline-block; padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--navy); color: var(--navy); font-weight: 600; font-size: 14px; text-decoration: none; }
+.lk.reg2 { background: var(--pink); border-color: var(--pink); color: #fff; }
+.lk:focus-visible { outline: 3px solid var(--navy); outline-offset: 2px; }
+.role { border-top: 1px solid var(--line); padding-top: 8px; }
+.role b { color: var(--pink-ink); text-transform: uppercase; letter-spacing: 0.06em; font-size: 11px; margin-right: 6px; }
+.note { font-size: 12px; color: var(--mute); }
+.also { border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; }
+.also b { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--mute); }
+.also p { font-size: 12px; }
+.brk { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 10px; padding-block: 8px; font-size: 12px; color: var(--mute); border-bottom: 1px dashed var(--line); }
+.brk .rt { font-size: 12px; font-weight: 600; color: var(--mute); }
+.acc { border: 1.5px solid var(--line); border-radius: 12px; }
+.acc summary { cursor: pointer; padding: 14px; font-weight: 650; min-height: 48px; display: flex; align-items: center; color: var(--navy); }
+.acc[open] summary { border-bottom: 1px solid var(--line); }
+.acc .in { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+.acc ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; overflow-wrap: anywhere; }
+.acc small { color: var(--mute); display: block; }
+.tt + .tt { border-top: 1px solid var(--line); padding-top: 10px; }
+.tt strong { display: block; }
+.btn { background: var(--navy); color: var(--on-dark); border: 0; border-radius: 12px; min-height: 52px; padding: 0 18px; font-weight: 700; font-size: 16px; cursor: pointer; width: 100%; }
+.btn:hover { background: var(--pink); }
+.btn.ghost { background: var(--bg); color: var(--navy); border: 1.5px solid var(--navy); }
+.btn.ghost:hover { background: var(--bg); color: var(--pink-ink); border-color: var(--pink); }
+.cta { border: 2px solid var(--pink); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.cta p { font-weight: 600; color: var(--navy); }
+.sc { border: 2px solid var(--navy); border-radius: 12px; aspect-ratio: 4 / 5; padding: 6% 6% 0; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; background: var(--bg); }
+.sc-top { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+.sc-h { font-size: clamp(1.25rem, 6.2vw, 1.85rem); line-height: 1.08; font-weight: 700; letter-spacing: -0.02em; margin-top: 6px; text-wrap: balance; color: var(--navy); }
+.sc-s { font-size: clamp(0.95rem, 4vw, 1.2rem); font-weight: 600; color: var(--pink-ink); margin-top: 4px; }
+.sc-logo { width: 21%; height: auto; flex: none; display: block; }
+.sc-days { display: flex; flex-direction: column; gap: 16px; }
+.sc-dh { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 2px solid var(--navy); padding-bottom: 4px; margin-bottom: 4px; color: var(--navy); }
+.sc ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.sc li { display: grid; grid-template-columns: 2.8rem minmax(0, 1fr); gap: 6px; align-items: baseline; font-size: clamp(12px, 3.4vw, 14px); }
+.sc li span { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--pink-ink); }
+.sc li b { font-weight: 600; line-height: 1.25; color: var(--navy); }
+.sc li em { display: block; font-style: normal; font-size: 10px; color: var(--mute); font-weight: 400; }
+.sc-foot { margin-inline: -6%; background: var(--navy); color: var(--on-dark); padding: 11px 6%; display: flex; justify-content: space-between; gap: 6px 10px; flex-wrap: wrap; font-size: 11px; font-weight: 600; border-radius: 0 0 10px 10px; }
+.app.wide { max-width: 1080px; }
+.app.wide .bar { position: static; }
+.slides { display: flex; flex-direction: column; gap: 22px; align-items: center; }
+.sl-wrap { width: 100%; max-width: 1080px; }
+.sl-cap { font-size: 12px; color: var(--mute); margin: 0 0 6px; }
+.slide { container-type: inline-size; aspect-ratio: 4 / 5; width: 100%; background: var(--bg); border: 1px solid var(--line); display: flex; flex-direction: column; overflow: hidden; }
+.sl-in { flex: 1; min-height: 0; padding: 5cqw 6cqw 3cqw; display: flex; flex-direction: column; gap: 2.6cqw; }
+.sl-top { display: flex; align-items: center; justify-content: space-between; }
+.sl-top img { width: 8cqw; height: auto; display: block; }
+.sl-n { font-size: 2.4cqw; font-weight: 700; color: var(--mute); }
+.sl-k { font-size: 2.4cqw; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--pink-ink); }
+.sl-h { font-size: 7.4cqw; line-height: 1.06; font-weight: 700; letter-spacing: -.02em; color: var(--navy); text-wrap: balance; }
+.sl-s { font-size: 3.6cqw; font-weight: 600; color: var(--pink-ink); }
+.sl-p { font-size: 3cqw; color: var(--mute); }
+.sl-rows { display: flex; flex-direction: column; flex: 1; justify-content: space-evenly; min-height: 0; }
+.sl-row { display: grid; grid-template-columns: 12cqw minmax(0, 1fr); gap: 2cqw; align-items: baseline; padding: 1.6cqw 0; border-bottom: 1px solid var(--line); }
+.sl-row:last-child { border-bottom: 0; }
+.sl-row b { font-size: 3.5cqw; font-weight: 700; color: var(--pink-ink); font-variant-numeric: tabular-nums; }
+.sl-row strong { display: block; font-size: 3.5cqw; line-height: 1.2; font-weight: 600; color: var(--navy); }
+.sl-row small { display: block; font-size: 2.5cqw; line-height: 1.3; color: var(--mute); margin-top: .6cqw; }
+.sl-row small i { font-style: normal; font-weight: 700; color: var(--pink-ink); }
+.sl-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.8cqw; }
+.sl-list li { font-size: 3cqw; line-height: 1.3; color: var(--navy); padding-left: 3.4cqw; position: relative; }
+.sl-list li::before { content: ""; position: absolute; left: 0; top: 1.1cqw; width: 1.6cqw; height: 1.6cqw; border-radius: 50%; background: var(--pink); }
+.sl-sec { font-size: 2.6cqw; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--navy); border-bottom: .4cqw solid var(--navy); padding-bottom: 1cqw; }
+.sl-cta { background: var(--pink); color: var(--on-dark); border-radius: 2cqw; padding: 3cqw 3.4cqw; font-size: 4cqw; font-weight: 700; text-align: center; line-height: 1.2; }
+.sl-cta small { display: block; font-size: 2.6cqw; font-weight: 600; margin-top: 1cqw; }
+.sl-foot { background: var(--navy); color: var(--on-dark); padding: 2.4cqw 6cqw; display: flex; justify-content: space-between; gap: 2cqw; font-size: 2.3cqw; font-weight: 600; }
+.sl-cover { justify-content: space-between; }
+.sl-cover .sl-logo { width: 30cqw; height: auto; display: block; }
+.sl-cover .sl-h { font-size: 11cqw; margin-top: 2cqw; }
+.sl-cover .sl-s { font-size: 5cqw; }
+.sl-meta { font-size: 3.2cqw; color: var(--navy); font-weight: 600; line-height: 1.4; }
+.ai { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; color: var(--ink); }
+.ai summary { cursor: pointer; font-weight: 700; color: var(--navy); min-height: 44px; display: flex; align-items: center; }
+.ai h2 { font-size: 15px; color: var(--navy); margin: 16px 0 6px; }
+.ai h3 { font-size: 14px; color: var(--pink-ink); margin: 12px 0 4px; }
+.ai ul { margin: 4px 0 8px; padding-left: 18px; }
+.ai li { margin: 4px 0; overflow-wrap: anywhere; }
+.ai .aib { margin: 10px 0 2px; color: var(--mute); }
+.aip-l { font-weight: 700; margin: 10px 0 4px; }
+.aip { white-space: pre-wrap; background: #f4f6f7; border: 1px solid var(--line); border-radius: 12px; padding: 12px; font: inherit; font-size: 13px; margin: 0 0 8px; }
+.tip { font-size: 12px; color: var(--mute); }
+.foot { margin-top: 24px; display: flex; flex-direction: column; gap: 8px; font-size: 11px; color: var(--mute); }
+.facts { display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: var(--mute); }
+.facts strong { color: var(--navy); }
+</style>
+</head>
+<body>
+
+
+<div class="app">
+  <header class="bar">
+    <div class="brand"><img id="tag" alt="" width="30"><div><b>CustomerX 2026</b><small>14 and 15 Oct, Olympia London</small></div></div>
+    <a class="reg" href="https://www.customerx.net/registration-ticket-types" target="_blank" rel="noopener" aria-label="Register now, opens in a new tab">Register now</a>
+  </header>
+  <div class="prog" id="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="navrow"><button class="back" id="back" type="button" data-act="back" hidden>&larr; Back</button></div>
+
+  <main>
+    <section class="screen" id="s-sector">
+      <img class="hero" id="hero" alt="CustomerX">
+      <div class="kicker">Step 1 of 2</div>
+      <h1>Plan your day at CustomerX</h1>
+      <p class="lede">Pick your sector and your role. You get the six sessions worth your time across both days, plus people to find and questions to ask.</p>
+      <h2>Which sector are you in?</h2>
+      <div class="tiles" id="sectorTiles"></div>
+      <div class="facts">
+        <span><strong>Wed 14 Oct</strong> doors 8:30am to 5:30pm, drinks from 4:30pm</span>
+        <span><strong>Thu 15 Oct</strong> doors 8:30am to 4:30pm</span>
+      </div>
+      <div class="cta"><p>Secure your place at Olympia London on 14 and 15 October.</p><a class="reg big" href="https://www.customerx.net/registration-ticket-types" target="_blank" rel="noopener" aria-label="Register now, opens in a new tab">Register now</a></div>
+    </section>
+
+    <section class="screen" id="s-role" hidden>
+      <div class="kicker">Step 2 of 2</div>
+      <h1 id="roleHead">Which role are you?</h1>
+      <p class="lede">The role decides which of two clashing sessions comes first, and what to listen for.</p>
+      <div class="tiles" id="roleTiles"></div>
+    </section>
+
+    <section class="screen" id="s-plan" hidden>
+      <div>
+        <div class="kicker">Your CustomerX day</div>
+        <h1 id="planHead"></h1>
+      </div>
+      <div class="crumb"><button class="chip" type="button" data-act="chsector">Change sector</button><button class="chip" type="button" data-act="chrole">Change role</button></div>
+      <div class="seg" role="group" aria-label="Day">
+        <button type="button" data-act="day" data-v="wed" aria-pressed="true">Wed 14 Oct</button>
+        <button type="button" data-act="day" data-v="thu" aria-pressed="false">Thu 15 Oct</button>
+      </div>
+      <p id="dayLine" class="tip"></p>
+      <div class="legend"><span><i class="mk must"></i>Must see</span><span><i class="mk worth"></i>Worth your time</span><span><i class="mk opt"></i>Optional</span></div>
+      <div class="tl" id="timeline"></div>
+      <details class="acc"><summary>People to find</summary><div class="in"><ul id="meet"></ul></div></details>
+      <details class="acc"><summary>Questions to ask</summary><div class="in"><ul id="ask"></ul></div></details>
+      <details class="acc"><summary>Closed-door think tanks</summary><div class="in" id="think"></div></details>
+      <div class="cta"><p>Planned your day? Register to secure your place.</p><a class="reg big" href="https://www.customerx.net/registration-ticket-types" target="_blank" rel="noopener" aria-label="Register now, opens in a new tab">Register now</a></div>
+      <button class="btn" type="button" data-act="card">Make my share card</button>
+      <button class="btn ghost" type="button" data-act="slides">Make carousel slides</button>
+    </section>
+
+    <section class="screen" id="s-slides" hidden>
+      <div class="kicker">Carousel slides</div>
+      <p class="tip">Five slides in 4:5 portrait (1080 x 1350 px), the size LinkedIn shows without cropping. Screenshot each slide in turn, or on a computer right-click a slide in browser developer tools and choose Capture node screenshot. A wide browser window gives the sharpest result.</p>
+      <div class="slides" id="slideList"></div>
+      <div class="cta"><p>Join us at CustomerX on 14 and 15 October.</p><a class="reg big" href="https://www.customerx.net/registration-ticket-types" target="_blank" rel="noopener" aria-label="Register now, opens in a new tab">Register now</a></div>
+      <button class="btn ghost" type="button" data-act="plan">Back to my plan</button>
+    </section>
+
+    <section class="screen" id="s-card" hidden>
+      <div class="kicker">Share card</div>
+      <div id="shareCard"></div>
+      <p class="tip">Take a screenshot of the card to share it. It is sized 4:5, which suits a LinkedIn post.</p>
+      <div class="cta"><p>Join us at CustomerX on 14 and 15 October.</p><a class="reg big" href="https://www.customerx.net/registration-ticket-types" target="_blank" rel="noopener" aria-label="Register now, opens in a new tab">Register now</a></div>
+      <button class="btn ghost" type="button" data-act="plan">Back to my plan</button>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p><a href="https://www.customerx.net/programme/agenda" target="_blank" rel="noopener">Full agenda</a> &middot; <a href="https://www.customerx.net/registration-ticket-types" target="_blank" rel="noopener">Register</a></p>
+    <p>Built from the public programme at customerx.net on 11 October 2026. Sessions, times and speakers can change, and some sessions list no speakers yet. Role lenses are prompts for what to listen for, not claims about what any speaker will say. Created by RetailX.</p>
+  </footer>
+<!--AI-START-->
+<section class="ai" id="for-ai">
+<details>
+<summary>Plan with your own Claude or other AI assistant</summary>
+<div class="aibody">
+<p>Paste the web address of this page into Claude (or any assistant that can read web pages) with the request below. Everything it needs is in this section as plain text.</p>
+<p class="aip-l">Suggested request</p><pre class="aip" id="aiPrompt">Read the CustomerX 2026 planner at this page address. Using the CustomerX 2026 agenda on this page and everything you know about me (my role, company, sector, goals and current priorities), choose my top 6 sessions for each day. Pick at most one session per time slot, because sessions in the same slot run at the same time. For each pick give the time, stage, title, who is speaking, one sentence on why it suits me, and the link to its agenda page. Then suggest where a think tank or a 1:1 meeting on the show floor would serve me better than a session, give three questions I should ask on the day, and finish with the Register link. Use only the sessions listed on this page, and say so if something I want is not there.</pre>
+<button type="button" class="chip" data-act="copyprompt">Copy request</button> <span class="tip" id="copyMsg" role="status"></span>
+<h2>Event facts</h2><ul><li>CustomerX 2026, Olympia London, 14 and 15 October 2026.</li><li>Wednesday: doors 8:30am to 5:30pm. Thursday: doors 8:30am to 4:30pm.</li><li>Two open stages run at the same time: Changemaker Theatre and Gateway Stage. Each time slot below lists what is on in parallel.</li><li>Full agenda: <a href="https://www.customerx.net/programme/agenda">https://www.customerx.net/programme/agenda</a></li><li>Register: <a href="https://www.customerx.net/registration-ticket-types">https://www.customerx.net/registration-ticket-types</a></li></ul>
+<h2>Agenda by time slot</h2><p>Sessions with the same slot code run at the same time. Choose one per slot. Times are UK time.</p>
+<h3>Wednesday 14 October (Doors 8:30am to 5:30pm)</h3>
+<p class="aib"><b>08:30</b> Registration</p>
+<p class="aib"><b>Slot w1</b> (1 session at once)</p><ul>
+<li><b>Friday Night Is the New Mall: Owning the Night-In Economy</b>, Changemaker Theatre, 09:30–10:30. Chair: Ian Jindal, Founder, RetailX. Speakers: Claire Pointon, Managing Director/EVP UK &amp; Ireland, Just Eat; Richard Brant, Senior Director, Advanced TV, Strategy &amp; Partnerships, Vevo; Bruce Broadbent, Brand Partnerships Manager, TikTok. The opening session. Food delivery, streaming and social share one evening, so it frames the rest of the day for every sector. <a href="https://www.customerx.net/2026-agenda-1/friday-night-new-mall-owning-night-economy">Agenda page</a></li>
+</ul>
+<p class="aib"><b>Slot w2</b> (2 sessions at once)</p><ul>
+<li><b>Fireside Chat: Operating in an Always On Commerce Economy</b>, Changemaker Theatre, 11:00–11:25. Chair: Georgia Leybourne, Founder, GK Strategies. Speakers: Caroline Bates, Grocery and New Verticals Director, Just Eat. <a href="https://www.customerx.net/2026-agenda-1/keynote-building-cross-industry-marketplaces-through-strategic-partnerships">Agenda page</a></li>
+<li><b>Keynote: Beyond the Basket: How TikTok Shop Drives Halo and Total Brand Growth</b>, Gateway Stage, 11:00–11:20. Sponsor: GoPlaces. Speakers: Lauren Fisch, Commercial Lead, GoPlaces; Sasha Gerrie, Marketing &amp; Content, GoPlaces. <a href="https://www.customerx.net/2026-agenda-1/keynote-building-customer-led-growth-commerce-platforms-service-providers">Agenda page</a></li>
+</ul>
+<p class="aib"><b>Slot w3</b> (2 sessions at once)</p><ul>
+<li><b>Building Connected Loyalty Ecosystems: How Travel, Hospitality, Retail and Rewards Partners Create Shared Value</b>, Changemaker Theatre, 11:30–12:15. Chair: Georgia Leybourne, Founder, GK Strategies. Speakers: Sophia Laban, Loyalty Manager, Eurostar. <a href="https://www.customerx.net/2026-agenda-1/panel-aligning-loyalty-programs-industries-travel-finance-beyond">Agenda page</a></li>
+<li><b>Panel: Building Resilient Cross-Company Customer Journeys</b>, Gateway Stage, 11:30–12:15. Chair: Ben Phillips, Principal CX Consultant, CX Alive. Speakers: Richard Pash, Chief Customer Officer, UK &amp; EMEA, Zurich Insurance; David Hawksworth, Customer Engagement Director, Auto Trader; Nadine Killoran, Global DTC Marketing &amp; Growth Consultant, Walgreens Boots Alliance. <a href="https://www.customerx.net/2026-agenda-1/panel-building-resilient-cross-company-customer-journeys">Agenda page</a></li>
+</ul>
+<p class="aib"><b>Slot w4</b> (2 sessions at once)</p><ul>
+<li><b>How Top-Performing Consumer Brands Are Using Product Claims to Outpace the Competition in AI Search</b>, Changemaker Theatre, 12:20–12:40. Sponsor: XEO360. Speakers: Jason Forbes, CEO &amp; Co-Founder, XEO360. <a href="https://www.customerx.net/2026-agenda-1/keynote-owning-moment-choicea-cross-platform-journey">Agenda page</a></li>
+<li><b>Keynote: Why Out of Home Strengthens a Premium Delivery Offer</b>, Gateway Stage, 12:20–12:40. Sponsor: DPD. Speakers: Tim Davies, Head of Out of Home, DPD. <a href="https://www.customerx.net/2026-agenda-1/keynote-working-together-overcome-pitfalls-multi-touchpoint-transaction-competition">Agenda page</a></li>
+</ul>
+<p class="aib"><b>12:40</b> Lunch and show floor with 1:1 meetings</p>
+<p class="aib"><b>Slot w5</b> (2 sessions at once)</p><ul>
+<li><b>Keynote: The New Customer Journey: How Social and AI Are Reshaping Discovery, Decisions and Commerce</b>, Changemaker Theatre, 13:45–14:05. Speakers: Giulia Yang, Growth &amp; Partnership Manager, TikTok. <a href="https://www.customerx.net/2026-agenda-1/keynote-guest-customer-graph-one-identity-travel-retail-media">Agenda page</a></li>
+<li><b>Keynote: The Retail Media Opportunity, for Brands, Advertisers and Retailers</b>, Gateway Stage, 13:45–14:05. Speakers: Colin Lewis, Founder, Commerce Media Works. <a href="https://www.customerx.net/2026-agenda-1/keynote-making-personalisation-work-platforms-retail-service-environments">Agenda page</a></li>
+</ul>
+<p class="aib"><b>Slot w6</b> (2 sessions at once)</p><ul>
+<li><b>Beyond the Wearable: Turning Personal Data into Everyday Customer Relationships</b>, Changemaker Theatre, 14:10–14:55. Chair: Naomi Davies, Founder, NMD Marketing. Speakers: Leila Thabet, Director, Health &amp; Wellness Solutions, Holland &amp; Barrett; Michelle Ripley, IT Director, Third Space; Matthew Dijkstra, Chief Customer Officer, Vitality. <a href="https://www.customerx.net/2026-agenda-1/panel-innovating-health-retail-entertaiment-transform-wearable-data-seamless-customer-experiences">Agenda page</a></li>
+<li><b>Panel: Retail Media as a Cross-Sector Commercial System</b>, Gateway Stage, 14:10–14:55. Chair: Colin Lewis, Founder, Commerce Media Works. Speakers: Sam Eads, Head of Sales, Trainline Media, Trainline; Ian Black, Managing Partner, Head of Retail Media, Publicis Media; Inês Catão, Retail Media Director, Worten; Benjamin Thompson, VP of Business Strategy, Kevel. <a href="https://www.customerx.net/2026-agenda-1/panel-retail-media-cross-sector-commercial-system">Agenda page</a></li>
+</ul>
+<p class="aib"><b>Slot w7</b> (2 sessions at once)</p><ul>
+<li><b>From Brand Disruption to Commercial Impact: The Unlikely Link Between 3 Distinct Category Trailblazers</b>, Changemaker Theatre, 15:00–15:45. Chair: Parry Jones, CEO, The Specialist Works. Speakers: Tom Daniell, Chief Marketing Officer, Hastings Direct; Charlotte Ford, Brand, Content &amp; Partnerships Senior Director, Monzo; David Clyde, Group Brand Director, formerly Lebara. <a href="https://www.customerx.net/2026-agenda-1/panel-discussion">Agenda page</a></li>
+<li><b>Panel: Turning Content into Transactions</b>, Gateway Stage, 15:00–15:45. Chair: Paul Skeldon, Author, Internet Retailing. Speakers: Somesh Dwivedi, Global ECommerce Director, Essity; Anna Avedisyan, Director, Brand &amp; Consumer Products Marketing, Moonbug Entertainment; Flora Kong, Managing Director, Dentsu X; Roxanne Lewington, Growth Marketing Manager, Canto. <a href="https://www.customerx.net/2026-agenda-1/panel-turning-content-transactions">Agenda page</a></li>
+</ul>
+<p class="aib"><b>Slot w8</b> (1 session at once)</p><ul>
+<li><b>Who Owns the Airport Customer</b>, Changemaker Theatre, 15:50–16:35. Chair: Ian Jindal, Founder, RetailX. Speakers: Justin Reid, Senior Director of Global Partnerships Solutions, Tripadvisor; Rae Gibson, Global Brand Director, Global Power Brands, Travel Retail, Pernod Ricard; David Norris, Chief Growth Officer, Holiday Extras. A case study in who owns a customer when several businesses share the same journey. Useful in any sector. <a href="https://www.customerx.net/2026-agenda-1/airports-ultimate-commerce-junction">Agenda page</a></li>
+</ul>
+<p class="aib"><b>16:30</b> Official networking drinks until 17:30</p>
+<h3>Thursday 15 October (Doors 8:30am to 4:30pm)</h3>
+<p class="aib"><b>08:30</b> Registration</p>
+<p class="aib"><b>Slot u1</b> (1 session at once)</p><ul>
+<li><b>The Always-On Fan Economy</b>, Changemaker Theatre, 09:30–10:30. Chair: Ian Jindal, Founder, RetailX. Speakers: Amanpreet Singh, Senior Digital Brand Experiences &amp; Culture Marketing Manager, Personal Care, Unilever; Chrissie Hoolahan, Head of Creator and Influencer Content Partnerships, DAZN; Marek Borowik, Director of Fan Engagement, SailGP. Fan spend runs across sport, media, retail and lifestyle. Look for how passion turns into repeat purchase. <a href="https://www.customerx.net/2026-agenda-1/always-fan-economy">Agenda page</a></li>
+</ul>
+<p class="aib"><b>Slot u2</b> (2 sessions at once)</p><ul>
+<li><b>Keynote: Fundamentals First: Building the Organisational Muscle for Always-On Commerce</b>, Changemaker Theatre, 11:00–11:20. Speakers: Veronika Kryuchkova, Global Head of Capability Building, Reckitt. <a href="https://www.customerx.net/2026-agenda-1/keynote-aligning-commercial-value-shared-customer-ecosystems">Agenda page</a></li>
+<li><b>Fireside Chat: Breathing Life into Journey-Based Growth Across Connected Sectors</b>, Gateway Stage, 11:00–11:20. Chair: Ian Jindal, Founder, RetailX. Speakers: Ian Plummer, Chief Customer Officer, Auto Trader. <a href="https://www.customerx.net/2026-agenda-1/keynote-breathing-life-journey-based-growth-connected-sectors">Agenda page</a></li>
+</ul>
+<p class="aib"><b>Slot u3</b> (2 sessions at once)</p><ul>
+<li><b>Connected Commerce Beyond the Initial Booking: Friction-Free Integration of Value Added Service</b>, Changemaker Theatre, 11:30–12:15. Chair: Jamie Hancox, Founder, Buying Time. Speakers: Ian Chambers, Digital Director, easyJet &amp; easyJet Holidays; Joanna Montgomery, Head of Digital (Product and eCommerce), Butlin&#x27;s; Kate Mitchell, Head of Product, Customer Digital Experience, Forge Holiday Group. <a href="https://www.customerx.net/2026-agenda-1/panel-living-environments-commercial-ecosystems">Agenda page</a></li>
+<li><b>Panel: Subscription Economy Lessons from Media &amp; Entertainment</b>, Gateway Stage, 11:30–12:15. Chair: Matteo Costa, Loyalty Expert and Customer and Commercial Strategist. Speakers: Ammar Qureshi, Director of CRM, formerly Babbel; Helen Ward, VP Growth, Marquee TV; Pauline Delalandre, Head of Customer Experience, The Guardian. <a href="https://www.customerx.net/2026-agenda-1/panel-subscription-economy-lessons-media-entertainment">Agenda page</a></li>
+</ul>
+<p class="aib"><b>Slot u4</b> (2 sessions at once)</p><ul>
+<li><b>Keynote: From Passive Scrollers to Active Buyers: How Sephora Bridges the Experience Gap</b>, Changemaker Theatre, 12:25–12:45. Sponsor: Storyly. Speakers: İrem Işık, Head of Marketing, Storyly; Nurcin Turgut, Head of Customer Success, Storyly. <a href="https://www.customerx.net/2026-agenda-1/keynote-unifying-screens-sensors-storefronts-one-commerce-media-network">Agenda page</a></li>
+<li><b>Keynote: Bringing Cross-Industry Operational Decision-Making to Life</b>, Gateway Stage, 12:25–12:45. Speakers not yet announced. The programme describes live signals such as location, weather and events. <a href="https://www.customerx.net/2026-agenda-1/keynote-bringing-cross-industry-operational-decision-making-life">Agenda page</a></li>
+</ul>
+<p class="aib"><b>12:45</b> Lunch and show floor with 1:1 meetings</p>
+<p class="aib"><b>Slot u5</b> (2 sessions at once)</p><ul>
+<li><b>Keynote: Identity as Shared Commercial Infrastructure</b>, Changemaker Theatre, 13:45–14:05. Speakers not yet announced. <a href="https://www.customerx.net/2026-agenda-1/keynote-identity-shared-commercial-infrastructure">Agenda page</a></li>
+<li><b>Podcast Live: Across the Shopper Journey with Content and Commerce</b>, Gateway Stage, 14:00–14:20. Sponsor: XEO360. Chair: Ian Jindal, Founder, RetailX. Speakers: Jason Forbes, CEO &amp; Co-Founder, XEO360; Stephen Edwards, Head of Agency, Tesco Media. <a href="https://www.customerx.net/2026-agenda-1/keynote-ocado-hooked-up-tesco-link-ai-robotics-better-customer-experiences">Agenda page</a></li>
+</ul>
+<p class="aib"><b>Slot u6</b> (2 sessions at once)</p><ul>
+<li><b>Capturing Impulsive Action in the Multi-Screen Economy</b>, Changemaker Theatre, 14:10–14:55. Chair: Amanda Vlietstra, Managing Editor, Internet Retailing. Speakers: Sam Eads, Head of Sales, Trainline Media, Trainline; Patrick Boyce-Apps, Head of Marketing, formerly Entain (Ladbrokes &amp; Coral). <a href="https://www.customerx.net/2026-agenda-1/panel-managing-value-leakage-connected-ecosystems">Agenda page</a></li>
+<li><b>Panel: Getting Customer Experience Transformation Right: What the Evidence Actually Shows</b>, Gateway Stage, 14:30–15:15. Chair: Ian Golding, CEO &amp; Founder, Global Customer Experience Consultancy. Speakers: Aswin Peter, Senior Product Lead, Customer Experience &amp; Product Strategy, Payments &amp; Open Banking Innovation, British Gas; Sandy Ghuman, Senior Product Lead, Customer Data &amp; Transformation, easyJet. Ends 15 minutes into the Placemaking session. <a href="https://www.customerx.net/2026-agenda-1/panel-getting-customer-experience-transformation-right-evidence-actually-shows">Agenda page</a></li>
+</ul>
+<p class="aib"><b>Slot u7</b> (1 session at once)</p><ul>
+<li><b>Placemaking and Cross-Sector Opportunities</b>, Changemaker Theatre, 15:00–16:00. Chair: Ian Jindal, Founder, RetailX. Speakers: Zerritha Brown, Head of Culture, London Borough of Camden; Kaia Charles, Town Centre Manager, Directorate of Place &amp; Growth, Woolwich &amp; Royal Borough of Greenwich; Isobel Pickles, Marketing &amp; Communications Manager, Vauxhall One. Town centres, culture and commerce from the place-owner side. Useful if your business depends on footfall or local partnerships. <a href="https://www.customerx.net/2026-agenda-1/quantified-life-economy">Agenda page</a></li>
+</ul>
+<p class="aib"><b>16:30</b> Doors close</p>
+<h2>Think tanks (closed door, 40 seats each, applied for on the ticket page)</h2><ul>
+<li><b>Commerce Media Think Tank</b> (Powered by Retail MediaX): Wed 10:00 The Long Tail: RMNs and SMB/Challenger Brands; Wed 11:00 Commerce Media Structures; Wed 12:00 The Consumer Behaviour Reset; Thu 10:00 How AI Is Reshaping Retail Media; Thu 11:00 In-Store Retail Media; Thu 12:00 Joined-Up Media Planning. <a href="https://www.customerx.net/programme/think-tanks/commerce-media">Details</a></li>
+<li><b>CommerceAI Think Tank</b> (Powered by Commerce AI Summit): Wed 10:00 The AI-Empowered Customer; Wed 11:00 AI in Commercial Teams; Wed 12:00 AI for Operational Advantage; Thu 10:00 AI and Business Model Reinvention; Thu 11:00 AI Risk, Trust, and Governance; Thu 12:00 Commerce 2030. <a href="https://www.customerx.net/programme/think-tanks/commerceai">Details</a></li>
+<li><b>Marketplaces Think Tank</b> (Wednesday only): Wed 14:00 Unlocking the Power of Marketplaces for Growth; Wed 14:50 Standing Out in the Marketplace Battleground; Wed 15:40 Beyond Amazon. <a href="https://www.customerx.net/programme/think-tanks/marketplaces">Details</a></li>
+</ul><p>Think tank hours overlap open stage sessions, so a person attending one misses the other.</p>
+<h2>Executive role lenses</h2><p>Use these when the person describes themselves in these terms. Persona framing shapes emphasis, not facts.</p><ul>
+<li><b>CEO</b>: Strategic owner. Listens for where the market is going and which bets to back. Listens for: Revenue growth, market share against key competitors, a customer satisfaction signal such as NPS, and progress on strategic initiatives. Questions: Who is winning the customer across sectors, and where do we stand? Which partnership here could add customers without adding fixed cost? Which of our current priorities would a rival say is already out of date?</li>
+<li><b>CMO</b>: Brand and demand owner. Listens for where attention goes, how discovery works and what turns it into sales. Listens for: Brand awareness and consideration, share of search and AI answers, conversion and return on ad spend, and customer acquisition cost and retention. Questions: Where does my next customer start looking today: social, search or an AI assistant? Which partner could extend my reach without raising acquisition cost? How do I show the commercial return of brand work to my CFO?</li>
+<li><b>CFO</b>: Financial steward. Listens for margin, payback and evidence of cause. Listens for: Gross margin trend, customer acquisition cost and payback, lifetime value to acquisition cost, and budget against actual. Questions: What does a new partner channel cost per customer once fees, incentives and returns are counted? Which of these models shows payback inside twelve months? Where is the evidence of cause, beyond correlation?</li>
+<li><b>CTO</b>: Builder and technical risk manager. Listens for data, reliability and integration cost. Listens for: Uptime and reliability, time to recover from incidents, API performance, and security and data-sharing risk. Questions: What has to be true in our data and APIs for a partner to plug in? Where does a shared identity or data layer create security or compliance exposure? Which of these ideas needs new platform capacity, and which can run on what we have?</li>
+<li><b>Investor</b>: Capital allocator. Listens for growth quality, defensibility and unit economics. Listens for: Growth rate and its trend, gross margin direction, retention and churn, and share of addressable spend. Questions: Is growth coming from the core, from partners or from acquisition? Which of these models gets stronger as it scales? What would a sceptic call the biggest risk to this trajectory?</li>
+<li><b>CHRO</b>: People strategist. Listens for capability gaps, workload and leadership depth. Listens for: Attrition in critical roles, time to fill key roles, engagement trend, and leadership bench depth. Questions: Which skills do cross-sector partnerships demand that our teams lack today? Where would these plans overload a team? Who in our leadership bench could own a partner relationship?</li>
+<li><b>COO</b>: Execution engine. Listens for delivery, ownership and capacity. Listens for: On-time delivery, cost per order, process cycle time, and capacity use. Questions: Who owns delivery of a joint offer when two companies are involved? What would it take operationally to support the upper end of growth? Where do customers feel our internal process failures?</li>
+</ul><h2>Sector profiles</h2><ul>
+<li><b>Retail &amp; fashion</b>: Retailers and fashion brands looking for new customer sources, partner revenue and better discovery.</li>
+<li><b>Grocery &amp; FMCG</b>: Grocers, suppliers and delivery players working out retail media, delivery and routine-driven demand.</li>
+<li><b>Travel &amp; transport</b>: Airlines, rail, holiday groups and travel platforms looking at loyalty, shared customer data and the journey beyond the booking.</li>
+<li><b>Leisure &amp; hospitality</b>: Holiday parks, gyms, venues and hospitality brands competing for leisure time and spend.</li>
+<li><b>Health, wellness &amp; beauty</b>: Health retailers, personal care and beauty brands working on personal data, content and direct-to-consumer growth.</li>
+<li><b>Entertainment, sport &amp; TV</b>: Broadcasters, streamers, sports rights holders and content owners turning attention and fandom into revenue.</li>
+<li><b>Financial services, utilities &amp; telecoms</b>: Banks, insurers, energy and mobile providers looking at partner journeys, trust and brand growth.</li>
+<li><b>Media, advertising &amp; retail media</b>: Agencies, retail media networks and ad tech working out how commerce and media systems link up.</li>
+<li><b>Technology &amp; solution providers</b>: Platforms, data and AI providers looking for buyers, partners and proof points.</li>
+<li><b>Place, culture &amp; public sector</b>: Councils, town centres, cultural bodies and developers who bring customers and commerce together.</li>
+</ul><p class="tip">Built from the public programme at customerx.net on 11 October 2026. Sessions, times and speakers can change, so confirm on the agenda page.</p></div>
+</details>
+</section>
+<!--AI-END-->
+</div>
+
+<script>
+var LOGO = "data:image/png;base64,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";
+var TAG = "data:image/png;base64,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";
+
+
+/* ---------- Data: sessions ---------- */
+var SESS = [
+ {id:"w1",slot:"w1",stage:"Changemaker Theatre",time:"09:30–10:30",title:"Friday Night Is the New Mall: Owning the Night-In Economy",generic:"The opening session. Food delivery, streaming and social share one evening, so it frames the rest of the day for every sector.",url:"https://www.customerx.net/2026-agenda-1/friday-night-new-mall-owning-night-economy",chair:"Ian Jindal|Founder|RetailX",sp:["Claire Pointon|Managing Director/EVP UK & Ireland|Just Eat", "Richard Brant|Senior Director, Advanced TV, Strategy & Partnerships|Vevo", "Bruce Broadbent|Brand Partnerships Manager|TikTok"]},
+ {id:"w2a",slot:"w2",stage:"Changemaker Theatre",time:"11:00–11:25",title:"Fireside Chat: Operating in an Always On Commerce Economy",url:"https://www.customerx.net/2026-agenda-1/keynote-building-cross-industry-marketplaces-through-strategic-partnerships",chair:"Georgia Leybourne|Founder|GK Strategies",sp:["Caroline Bates|Grocery and New Verticals Director|Just Eat"]},
+ {id:"w2b",slot:"w2",stage:"Gateway Stage",time:"11:00–11:20",title:"Keynote: Beyond the Basket: How TikTok Shop Drives Halo and Total Brand Growth",tag:"Sponsor: GoPlaces",url:"https://www.customerx.net/2026-agenda-1/keynote-building-customer-led-growth-commerce-platforms-service-providers",sp:["Lauren Fisch|Commercial Lead|GoPlaces", "Sasha Gerrie|Marketing & Content|GoPlaces"]},
+ {id:"w3a",slot:"w3",stage:"Changemaker Theatre",time:"11:30–12:15",title:"Building Connected Loyalty Ecosystems: How Travel, Hospitality, Retail and Rewards Partners Create Shared Value",url:"https://www.customerx.net/2026-agenda-1/panel-aligning-loyalty-programs-industries-travel-finance-beyond",chair:"Georgia Leybourne|Founder|GK Strategies",sp:["Sophia Laban|Loyalty Manager|Eurostar"]},
+ {id:"w3b",slot:"w3",stage:"Gateway Stage",time:"11:30–12:15",title:"Panel: Building Resilient Cross-Company Customer Journeys",url:"https://www.customerx.net/2026-agenda-1/panel-building-resilient-cross-company-customer-journeys",chair:"Ben Phillips|Principal CX Consultant|CX Alive",sp:["Richard Pash|Chief Customer Officer, UK & EMEA|Zurich Insurance", "David Hawksworth|Customer Engagement Director|Auto Trader", "Nadine Killoran|Global DTC Marketing & Growth Consultant|Walgreens Boots Alliance"]},
+ {id:"w4a",slot:"w4",stage:"Changemaker Theatre",time:"12:20–12:40",title:"How Top-Performing Consumer Brands Are Using Product Claims to Outpace the Competition in AI Search",tag:"Sponsor: XEO360",url:"https://www.customerx.net/2026-agenda-1/keynote-owning-moment-choicea-cross-platform-journey",sp:["Jason Forbes|CEO & Co-Founder|XEO360"]},
+ {id:"w4b",slot:"w4",stage:"Gateway Stage",time:"12:20–12:40",title:"Keynote: Why Out of Home Strengthens a Premium Delivery Offer",tag:"Sponsor: DPD",url:"https://www.customerx.net/2026-agenda-1/keynote-working-together-overcome-pitfalls-multi-touchpoint-transaction-competition",sp:["Tim Davies|Head of Out of Home|DPD"]},
+ {id:"w5a",slot:"w5",stage:"Changemaker Theatre",time:"13:45–14:05",title:"Keynote: The New Customer Journey: How Social and AI Are Reshaping Discovery, Decisions and Commerce",url:"https://www.customerx.net/2026-agenda-1/keynote-guest-customer-graph-one-identity-travel-retail-media",sp:["Giulia Yang|Growth & Partnership Manager|TikTok"]},
+ {id:"w5b",slot:"w5",stage:"Gateway Stage",time:"13:45–14:05",title:"Keynote: The Retail Media Opportunity, for Brands, Advertisers and Retailers",url:"https://www.customerx.net/2026-agenda-1/keynote-making-personalisation-work-platforms-retail-service-environments",sp:["Colin Lewis|Founder|Commerce Media Works"]},
+ {id:"w6a",slot:"w6",stage:"Changemaker Theatre",time:"14:10–14:55",title:"Beyond the Wearable: Turning Personal Data into Everyday Customer Relationships",url:"https://www.customerx.net/2026-agenda-1/panel-innovating-health-retail-entertaiment-transform-wearable-data-seamless-customer-experiences",chair:"Naomi Davies|Founder|NMD Marketing",sp:["Leila Thabet|Director, Health & Wellness Solutions|Holland & Barrett", "Michelle Ripley|IT Director|Third Space", "Matthew Dijkstra|Chief Customer Officer|Vitality"]},
+ {id:"w6b",slot:"w6",stage:"Gateway Stage",time:"14:10–14:55",title:"Panel: Retail Media as a Cross-Sector Commercial System",url:"https://www.customerx.net/2026-agenda-1/panel-retail-media-cross-sector-commercial-system",chair:"Colin Lewis|Founder|Commerce Media Works",sp:["Sam Eads|Head of Sales, Trainline Media|Trainline", "Ian Black|Managing Partner, Head of Retail Media|Publicis Media", "Inês Catão|Retail Media Director|Worten", "Benjamin Thompson|VP of Business Strategy|Kevel"]},
+ {id:"w7a",slot:"w7",stage:"Changemaker Theatre",time:"15:00–15:45",title:"From Brand Disruption to Commercial Impact: The Unlikely Link Between 3 Distinct Category Trailblazers",url:"https://www.customerx.net/2026-agenda-1/panel-discussion",chair:"Parry Jones|CEO|The Specialist Works",sp:["Tom Daniell|Chief Marketing Officer|Hastings Direct", "Charlotte Ford|Brand, Content & Partnerships Senior Director|Monzo", "David Clyde|Group Brand Director|formerly Lebara"]},
+ {id:"w7b",slot:"w7",stage:"Gateway Stage",time:"15:00–15:45",title:"Panel: Turning Content into Transactions",url:"https://www.customerx.net/2026-agenda-1/panel-turning-content-transactions",chair:"Paul Skeldon|Author|Internet Retailing",sp:["Somesh Dwivedi|Global ECommerce Director|Essity", "Anna Avedisyan|Director, Brand & Consumer Products Marketing|Moonbug Entertainment", "Flora Kong|Managing Director|Dentsu X", "Roxanne Lewington|Growth Marketing Manager|Canto"]},
+ {id:"w8",slot:"w8",stage:"Changemaker Theatre",time:"15:50–16:35",title:"Who Owns the Airport Customer",generic:"A case study in who owns a customer when several businesses share the same journey. Useful in any sector.",url:"https://www.customerx.net/2026-agenda-1/airports-ultimate-commerce-junction",chair:"Ian Jindal|Founder|RetailX",sp:["Justin Reid|Senior Director of Global Partnerships Solutions|Tripadvisor", "Rae Gibson|Global Brand Director, Global Power Brands, Travel Retail|Pernod Ricard", "David Norris|Chief Growth Officer|Holiday Extras"]},
+ {id:"t1",slot:"u1",stage:"Changemaker Theatre",time:"09:30–10:30",title:"The Always-On Fan Economy",generic:"Fan spend runs across sport, media, retail and lifestyle. Look for how passion turns into repeat purchase.",url:"https://www.customerx.net/2026-agenda-1/always-fan-economy",chair:"Ian Jindal|Founder|RetailX",sp:["Amanpreet Singh|Senior Digital Brand Experiences & Culture Marketing Manager, Personal Care|Unilever", "Chrissie Hoolahan|Head of Creator and Influencer Content Partnerships|DAZN", "Marek Borowik|Director of Fan Engagement|SailGP"]},
+ {id:"t2a",slot:"u2",stage:"Changemaker Theatre",time:"11:00–11:20",title:"Keynote: Fundamentals First: Building the Organisational Muscle for Always-On Commerce",url:"https://www.customerx.net/2026-agenda-1/keynote-aligning-commercial-value-shared-customer-ecosystems",sp:["Veronika Kryuchkova|Global Head of Capability Building|Reckitt"]},
+ {id:"t2b",slot:"u2",stage:"Gateway Stage",time:"11:00–11:20",title:"Fireside Chat: Breathing Life into Journey-Based Growth Across Connected Sectors",url:"https://www.customerx.net/2026-agenda-1/keynote-breathing-life-journey-based-growth-connected-sectors",chair:"Ian Jindal|Founder|RetailX",sp:["Ian Plummer|Chief Customer Officer|Auto Trader"]},
+ {id:"t3a",slot:"u3",stage:"Changemaker Theatre",time:"11:30–12:15",title:"Connected Commerce Beyond the Initial Booking: Friction-Free Integration of Value Added Service",url:"https://www.customerx.net/2026-agenda-1/panel-living-environments-commercial-ecosystems",chair:"Jamie Hancox|Founder|Buying Time",sp:["Ian Chambers|Digital Director|easyJet & easyJet Holidays", "Joanna Montgomery|Head of Digital (Product and eCommerce)|Butlin's", "Kate Mitchell|Head of Product, Customer Digital Experience|Forge Holiday Group"]},
+ {id:"t3b",slot:"u3",stage:"Gateway Stage",time:"11:30–12:15",title:"Panel: Subscription Economy Lessons from Media & Entertainment",url:"https://www.customerx.net/2026-agenda-1/panel-subscription-economy-lessons-media-entertainment",chair:"Matteo Costa|Loyalty Expert and Customer and Commercial Strategist|",sp:["Ammar Qureshi|Director of CRM|formerly Babbel", "Helen Ward|VP Growth|Marquee TV", "Pauline Delalandre|Head of Customer Experience|The Guardian"]},
+ {id:"t4a",slot:"u4",stage:"Changemaker Theatre",time:"12:25–12:45",title:"Keynote: From Passive Scrollers to Active Buyers: How Sephora Bridges the Experience Gap",tag:"Sponsor: Storyly",url:"https://www.customerx.net/2026-agenda-1/keynote-unifying-screens-sensors-storefronts-one-commerce-media-network",sp:["İrem Işık|Head of Marketing|Storyly", "Nurcin Turgut|Head of Customer Success|Storyly"]},
+ {id:"t4b",slot:"u4",stage:"Gateway Stage",time:"12:25–12:45",title:"Keynote: Bringing Cross-Industry Operational Decision-Making to Life",note:"The programme describes live signals such as location, weather and events.",url:"https://www.customerx.net/2026-agenda-1/keynote-bringing-cross-industry-operational-decision-making-life",sp:[]},
+ {id:"t5a",slot:"u5",stage:"Changemaker Theatre",time:"13:45–14:05",title:"Keynote: Identity as Shared Commercial Infrastructure",url:"https://www.customerx.net/2026-agenda-1/keynote-identity-shared-commercial-infrastructure",sp:[]},
+ {id:"t5b",slot:"u5",stage:"Gateway Stage",time:"14:00–14:20",title:"Podcast Live: Across the Shopper Journey with Content and Commerce",tag:"Sponsor: XEO360",url:"https://www.customerx.net/2026-agenda-1/keynote-ocado-hooked-up-tesco-link-ai-robotics-better-customer-experiences",chair:"Ian Jindal|Founder|RetailX",sp:["Jason Forbes|CEO & Co-Founder|XEO360", "Stephen Edwards|Head of Agency|Tesco Media"]},
+ {id:"t6a",slot:"u6",stage:"Changemaker Theatre",time:"14:10–14:55",title:"Capturing Impulsive Action in the Multi-Screen Economy",url:"https://www.customerx.net/2026-agenda-1/panel-managing-value-leakage-connected-ecosystems",chair:"Amanda Vlietstra|Managing Editor|Internet Retailing",sp:["Sam Eads|Head of Sales, Trainline Media|Trainline", "Patrick Boyce-Apps|Head of Marketing|formerly Entain (Ladbrokes & Coral)"]},
+ {id:"t6b",slot:"u6",stage:"Gateway Stage",time:"14:30–15:15",title:"Panel: Getting Customer Experience Transformation Right: What the Evidence Actually Shows",note:"Ends 15 minutes into the Placemaking session.",url:"https://www.customerx.net/2026-agenda-1/panel-getting-customer-experience-transformation-right-evidence-actually-shows",chair:"Ian Golding|CEO & Founder|Global Customer Experience Consultancy",sp:["Aswin Peter|Senior Product Lead, Customer Experience & Product Strategy, Payments & Open Banking Innovation|British Gas", "Sandy Ghuman|Senior Product Lead, Customer Data & Transformation|easyJet"]},
+ {id:"t7",slot:"u7",stage:"Changemaker Theatre",time:"15:00–16:00",title:"Placemaking and Cross-Sector Opportunities",generic:"Town centres, culture and commerce from the place-owner side. Useful if your business depends on footfall or local partnerships.",url:"https://www.customerx.net/2026-agenda-1/quantified-life-economy",chair:"Ian Jindal|Founder|RetailX",sp:["Zerritha Brown|Head of Culture|London Borough of Camden", "Kaia Charles|Town Centre Manager, Directorate of Place & Growth|Woolwich & Royal Borough of Greenwich", "Isobel Pickles|Marketing & Communications Manager|Vauxhall One"]}
+];
+
+var SLOTS = {
+ w1:{t:"09:30",e:"to 10:30"}, w2:{t:"11:00"}, w3:{t:"11:30"}, w4:{t:"12:20"}, w5:{t:"13:45"}, w6:{t:"14:10"}, w7:{t:"15:00"}, w8:{t:"15:50",e:"to 16:35"},
+ u1:{t:"09:30",e:"to 10:30"}, u2:{t:"11:00"}, u3:{t:"11:30"}, u4:{t:"12:25"}, u5:{t:"13:45"}, u6:{t:"14:10"}, u7:{t:"15:00",e:"to 16:00"}
+};
+
+var DAYS = {
+ wed:{label:"Wednesday 14 October",hours:"Doors 8:30am to 5:30pm",items:[
+  {b:1,t:"08:30",txt:"Registration"},{s:"w1"},{s:"w2"},{s:"w3"},{s:"w4"},
+  {b:1,t:"12:40",txt:"Lunch and show floor with 1:1 meetings"},
+  {s:"w5"},{s:"w6"},{s:"w7"},{s:"w8"},
+  {b:1,t:"16:30",txt:"Official networking drinks until 17:30"}]},
+ thu:{label:"Thursday 15 October",hours:"Doors 8:30am to 4:30pm",items:[
+  {b:1,t:"08:30",txt:"Registration"},{s:"u1"},{s:"u2"},{s:"u3"},{s:"u4"},
+  {b:1,t:"12:45",txt:"Lunch and show floor with 1:1 meetings"},
+  {s:"u5"},{s:"u6"},{s:"u7"},
+  {b:1,t:"16:30",txt:"Doors close"}]}
+};
+
+var TANKS = {
+ cm:{name:"Commerce Media Think Tank",by:"Powered by Retail MediaX",url:"https://www.customerx.net/programme/think-tanks/commerce-media",
+  wed:["10:00 The Long Tail: RMNs and SMB/Challenger Brands","11:00 Commerce Media Structures","12:00 The Consumer Behaviour Reset"],
+  thu:["10:00 How AI Is Reshaping Retail Media","11:00 In-Store Retail Media","12:00 Joined-Up Media Planning"]},
+ cai:{name:"CommerceAI Think Tank",by:"Powered by Commerce AI Summit",url:"https://www.customerx.net/programme/think-tanks/commerceai",
+  wed:["10:00 The AI-Empowered Customer","11:00 AI in Commercial Teams","12:00 AI for Operational Advantage"],
+  thu:["10:00 AI and Business Model Reinvention","11:00 AI Risk, Trust, and Governance","12:00 Commerce 2030"]},
+ mp:{name:"Marketplaces Think Tank",by:"Wednesday only",url:"https://www.customerx.net/programme/think-tanks/marketplaces",
+  wed:["14:00 Unlocking the Power of Marketplaces for Growth","14:50 Standing Out in the Marketplace Battleground","15:40 Beyond Amazon"],thu:[]}
+};
+
+/* ---------- Data: sectors ---------- */
+var SECTORS = [
+ {id:"retail",label:"Retail & fashion",blurb:"Retailers and fashion brands looking for new customer sources, partner revenue and better discovery.",
+  p:{w2:["w2b","Shows how a social shop adds sales and lifts the wider brand. Useful when you weigh channel fees against reach."],
+     w3:["w3a","Rewards partnerships across travel, retail and hospitality show how shared loyalty can bring in customers you do not pay to acquire."],
+     w4:["w4a","Product claims and AI search influence who gets recommended. Check how your product data reads to an AI assistant."],
+     w5:["w5a","Social and AI now shape where shoppers start. Hear what that means for discovery and paid spend."],
+     w6:["w6b","Retail media is spreading beyond retailers. Look for where you could sell audience or space to other sectors."],
+     w7:["w7b","Essity and Dentsu X on turning attention into sales, with an entertainment and creator view."],
+     u2:["t2a","Reckitt on building the team skills that always-on commerce needs. Useful if you are planning hires or training."],
+     u3:["t3b","Subscription lessons from media, for retailers weighing membership and paid loyalty."],
+     u4:["t4a","A case study of how Sephora closes the gap between browsing and buying, presented by Storyly."],
+     u5:["t5b","Tesco Media and XEO360 on content and commerce across the shopper journey, recorded live."],
+     u6:["t6a","Impulse purchases across screens, with Trainline and Entain bringing views from outside retail."]},
+  o:{u7:"Town centres and high streets from the place-owner side. Useful if you run stores on high streets or in shopping centres."},
+  think:["mp","cm"],
+  meet:["Hélène Trad, Group Retail Media & Data Monetisation Director, Kingfisher","Tom Rainer, Head of Growth, Debenhams","Pinki Choudhury, Chief Product and Data Officer, Roman Originals","Ian Macfarlane, Global SEO Lead, H&M","Leanne Oddy, Digital and International Lead, Ann Summers","Faizan Shabbir, Head of Internal Retail Media EU, Wayfair"],
+  ask:["Which partner could bring me customers I cannot reach through my own channels?","Where does a marketplace or social shop sit in my margin once fees and returns are counted?","What would I change so that an AI assistant recommends my products?"]},
+
+ {id:"grocery",label:"Grocery & FMCG",blurb:"Grocers, suppliers and delivery players working out retail media, delivery and routine-driven demand.",
+  p:{w2:["w2a","Just Eat's grocery and new verticals director on growing through partners. A useful view from a delivery platform moving into grocery."],
+     w3:["w3a","Loyalty ecosystems across sectors. Ask how a grocery rewards scheme could link with travel, food and entertainment partners."],
+     w4:["w4b","DPD on out-of-home delivery and a premium offer. Relevant to delivery cost and collection options."],
+     w5:["w5b","Colin Lewis explains the retail media opportunity for brands, advertisers and retailers. A clear primer."],
+     w6:["w6b","Retail media across sectors, with Worten and Publicis. Look for what suppliers get for their spend."],
+     w7:["w7b","Essity's global ecommerce director with creative and agency voices on turning content into sales."],
+     u2:["t2a","Reckitt on building capability for always-on commerce. Relevant to supplier and category teams."],
+     u3:["t3b","Subscription lessons from media. Useful for repeat-purchase and replenishment models."],
+     u4:["t4b","Live signals such as weather, location and events in operational decisions. No speakers are listed yet, so check the programme."],
+     u5:["t5b","Tesco Media on content and commerce across the shopper journey, recorded live."],
+     u6:["t6a","Impulse buying across screens. Look for how media and conversion connect."]},
+  o:{w1:"Just Eat, Vevo and TikTok on the night-in. A close look at how food and entertainment compete for the same evening.",u1:"Unilever joins on fan spend. Useful for brands tying products to sport and entertainment moments."},
+  think:["cm"],
+  meet:["Stephen Edwards, Head of Agency, Tesco Media","Nick East, Head of Retail Media, Mars Europe","Emma Houslander, Global Retail Media Lead, Mars Pet Nutrition","Christian Tofte Skaarud, Head of Media & Retail Media, Coop Norge","Jon Cornish, Media Innovation Lead, Coop Media Network","Stephen Russell, VP Supplier Growth, Media & Insights, Rohlik Group","Michele Dainty, Shopper Marketing Director UK&I, Pladis Global"],
+  ask:["Where does retail media money come from in my category, and who is paying for it?","Which moments, such as the night in or the commute, should my promotions follow?","Who in my supply chain could share live demand signals with me?"]},
+
+ {id:"travel",label:"Travel & transport",blurb:"Airlines, rail, holiday groups and travel platforms looking at loyalty, shared customer data and the journey beyond the booking.",
+  p:{w2:["w2a","Just Eat on operating in an always-on economy and growing through partners. A platform view from outside travel."],
+     w3:["w3a","The core travel session. Eurostar's loyalty manager joins a panel on rewards across travel, hospitality and retail."],
+     w4:["w4a","AI search is becoming a discovery route for products and services. Check what your content tells it."],
+     w5:["w5a","TikTok on how social and AI reshape discovery and decisions. Relevant to inspiration and planning."],
+     w6:["w6b","Trainline Media is on this panel. Useful for how transport audiences become a media product."],
+     w7:["w7a","Hastings Direct, Monzo and Lebara on brand work in other categories. Good for lessons you can borrow."],
+     u2:["t2b","Auto Trader's chief customer officer on journey-based growth across connected sectors, chaired by Ian Jindal."],
+     u3:["t3a","The core session on integrating value added services after the booking, with easyJet, Butlin's and Forge Holiday Group."],
+     u4:["t4b","Live signals such as weather, location and events matter in travel. No speakers are listed yet."],
+     u5:["t5a","Shared identity across partners underpins joined-up loyalty and personalisation. No speakers are listed yet."],
+     u6:["t6b","easyJet and British Gas on what the evidence shows about customer experience transformation."]},
+  o:{w1:"Streaming, food and social share one evening. Useful if you compete for planning time at home.",w8:"The travel session of the event. Tripadvisor, Pernod Ricard travel retail and Holiday Extras on who owns the airport customer.",u1:"SailGP and DAZN on fans who travel and spend around events.",u7:"Destinations and town centres from the place-owner side. Useful for tourism and arrival-point partnerships."},
+  think:["cai","cm"],
+  meet:["Ian Chambers, Digital Director, easyJet & easyJet Holidays","Sophia Laban, Loyalty Manager, Eurostar","David Norris, Chief Growth Officer, Holiday Extras","Justin Reid, Senior Director of Global Partnerships Solutions, Tripadvisor","Joanna Montgomery, Head of Digital (Product and eCommerce), Butlin's","Sam Eads, Head of Sales, Trainline Media, Trainline","Charlotte Munro, Global Product Marketing and AI Product Development, Booking.com","Kate Mitchell, Head of Product, Customer Digital Experience, Forge Holiday Group"],
+  ask:["Which non-travel brands share my customers and could share reward value with us?","What happens to the customer between booking and travel, and who else could serve them there?","Where would a shared identity help us, and what would we need to give partners in return?"]},
+
+ {id:"leisure",label:"Leisure & hospitality",blurb:"Holiday parks, gyms, venues and hospitality brands competing for leisure time and spend.",
+  p:{w2:["w2a","Just Eat on always-on commerce and partner growth. Useful for venues and hospitality brands working with platforms."],
+     w3:["w3a","Loyalty ecosystems across travel, hospitality, retail and rewards. Look for partner models you could join."],
+     w4:["w4a","AI search is changing how people find places and products. Ask what it needs from your listings and claims."],
+     w5:["w5a","TikTok on social and AI discovery, which matters for venues and experiences that win on reputation."],
+     w6:["w6a","Third Space's IT director joins a panel on wearable data and customer relationships. The leisure session of the day."],
+     w7:["w7a","Three brands from different categories on turning brand work into commercial results."],
+     u2:["t2b","Auto Trader on journey-based growth across connected sectors, chaired by Ian Jindal."],
+     u3:["t3a","Butlin's and easyJet on adding services after the first booking. Directly relevant to upsell and ancillary revenue."],
+     u4:["t4b","Live signals such as weather and events affect leisure demand every day. No speakers are listed yet."],
+     u5:["t5a","Shared identity across partners could link memberships, bookings and rewards. No speakers are listed yet."],
+     u6:["t6a","Entain's marketing lead on impulsive action across screens. A view from a high-frequency leisure business."]},
+  o:{w1:"Streaming, food and social compete with going out. See how the in-home evening is being monetised.",u1:"SailGP, DAZN and Unilever on fan spend. The central session for sport, venues and events.",u7:"Vauxhall One, Camden and Greenwich on place, culture and footfall. Directly relevant to venues."},
+  think:["cai"],
+  meet:["Joanna Montgomery, Head of Digital (Product and eCommerce), Butlin's","Michelle Ripley, IT Director, Third Space","Marek Borowik, Director of Fan Engagement, SailGP","Patrick Boyce-Apps, formerly Head of Marketing, Entain","Isobel Pickles, Marketing & Communications Manager, Vauxhall One","David Norris, Chief Growth Officer, Holiday Extras"],
+  ask:["What do customers do before and after they visit, and who else could serve them then?","Which data from members or guests could improve a partner's offer, and what do we receive in return?","Where is my demand most sensitive to weather or events, and can I act on that live?"]},
+
+ {id:"health",label:"Health, wellness & beauty",blurb:"Health retailers, personal care and beauty brands working on personal data, content and direct-to-consumer growth.",
+  p:{w2:["w2b","How a social shop supports brand growth, relevant to beauty and personal care brands."],
+     w3:["w3b","Walgreens Boots Alliance's direct-to-consumer consultant joins a panel on journeys that cross company boundaries."],
+     w4:["w4a","Product claims and AI search matter in a category where claims are scrutinised. Check how yours read to an assistant."],
+     w5:["w5a","Social and AI discovery for products that people research before they buy."],
+     w6:["w6a","The core session. Holland & Barrett, Third Space and Vitality on turning wearable data into customer relationships."],
+     w7:["w7b","Essity on turning content into transactions, with agency and entertainment views."],
+     u2:["t2a","Reckitt on building capability for always-on commerce. A health and hygiene company's view."],
+     u3:["t3b","Subscription lessons from media, relevant to replenishment and wellness memberships."],
+     u4:["t4a","A beauty retail case study from Sephora's angle, presented by Storyly."],
+     u5:["t5a","Identity as shared infrastructure raises consent and trust questions for health and wellness data. No speakers are listed yet."],
+     u6:["t6b","British Gas and easyJet on what the evidence shows about customer experience transformation."]},
+  o:{w1:"Context on how households spend an evening across food, streaming and social.",u1:"Unilever personal care joins the fan economy panel. Useful for brands tying products to sport and entertainment."},
+  think:["cai","mp"],
+  meet:["Leila Thabet, Director, Health & Wellness Solutions, Holland & Barrett","Nataly Quinn, Head of Change and Tech Adoption, Holland & Barrett","Matthew Dijkstra, Chief Customer Officer, Vitality","Michelle Ripley, IT Director, Third Space","Nadine Killoran, Global DTC Marketing & Growth Consultant, Walgreens Boots Alliance","Adrienne Rowland, Senior Manager Retail Media EMEA, Wella","Simon Swan, eCommerce Development Director, Karo Healthcare"],
+  ask:["Which customer data would help a partner serve my customer better, and how do we earn consent for it?","Where do our product claims need to be consistent across retailers, marketplaces and AI answers?","Which wellness or beauty partner shares my customer without competing with me?"]},
+
+ {id:"entertainment",label:"Entertainment, sport & TV",blurb:"Broadcasters, streamers, sports rights holders and content owners turning attention and fandom into revenue.",
+  p:{w2:["w2b","Social commerce and brand halo from GoPlaces. Useful for rights holders and content owners with merchandise or partner offers."],
+     w3:["w3a","Loyalty and rewards partnerships across sectors. Look for how fandom could carry across partners."],
+     w4:["w4a","AI search is a new route to your audience. Ask what it surfaces about your content and products."],
+     w5:["w5a","TikTok on how social and AI reshape discovery. Central for anyone competing for attention."],
+     w6:["w6b","Retail media across sectors, including Trainline Media. Look for how content owners can sell audiences."],
+     w7:["w7b","The content session. Moonbug Entertainment and Dentsu X on turning content into transactions."],
+     u2:["t2a","Reckitt on capability building for always-on commerce. A helpful view of the brands that buy your audiences."],
+     u3:["t3b","The core subscription session, with Marquee TV, The Guardian and Babbel's former CRM director."],
+     u4:["t4a","Shoppable video and stories, presented by Storyly with a Sephora case study."],
+     u5:["t5b","Content and commerce across the shopper journey, with Tesco Media and XEO360, recorded live."],
+     u6:["t6a","Entain and Trainline Media on impulsive action across screens. Relevant to second-screen and in-moment offers."]},
+  o:{w1:"Vevo and TikTok sit on the panel. The core session on how entertainment and commerce share the evening.",u1:"The core session. DAZN, SailGP and Unilever on the always-on fan economy.",u7:"Culture and place from Camden, Greenwich and Vauxhall One. Useful for events and live experiences."},
+  think:["cm"],
+  meet:["Chrissie Hoolahan, Head of Creator and Influencer Content Partnerships, DAZN","Marek Borowik, Director of Fan Engagement, SailGP","Richard Brant, Senior Director, Advanced TV, Strategy & Partnerships, Vevo","Helen Ward, VP Growth, Marquee TV","Anna Avedisyan, Director, Brand & Consumer Products Marketing, Moonbug Entertainment","Pauline Delalandre, Head of Customer Experience, The Guardian","Sally Hunter, Director of Supporter Experience, The Guardian"],
+  ask:["Which brands want my audience in a form I can package and sell?","Where does content turn into a purchase today, and who gets the data when it does?","What can subscription businesses in other media teach me about holding on to members?"]},
+
+ {id:"services",label:"Financial services, utilities & telecoms",blurb:"Banks, insurers, energy and mobile providers looking at partner journeys, trust and brand growth.",
+  p:{w2:["w2a","Just Eat on operating in an always-on economy. A platform view of growth through partners."],
+     w3:["w3b","The core session. Zurich Insurance and Auto Trader on building resilient customer journeys across companies."],
+     w4:["w4a","AI search is changing how people compare products and providers. Check what it can learn from your content."],
+     w5:["w5a","TikTok on social and AI discovery. Useful for challenger brands and younger audiences."],
+     w6:["w6a","Vitality's chief customer officer joins a panel on turning personal data into customer relationships."],
+     w7:["w7a","The core brand session. Hastings Direct, Monzo and Lebara on turning brand work into commercial results."],
+     u2:["t2b","Auto Trader on journey-based growth across connected sectors. Insurance and finance partners sit on those journeys."],
+     u3:["t3a","Value added services after the first sale, a model insurers and energy firms use as add-ons."],
+     u4:["t4b","Live signals in operational decisions. No speakers are listed yet."],
+     u5:["t5a","Identity as shared infrastructure matters most where trust and verification are central. No speakers are listed yet."],
+     u6:["t6b","British Gas on what the evidence shows about customer experience transformation."]},
+  o:{w1:"Context on how households spend an evening across food, streaming and social.",u1:"Fan spend across sport and media. Useful if you sponsor or partner with rights holders.",w8:"Who owns the customer when several businesses share one journey. Relevant to embedded finance and insurance.",u7:"Place and community from the local authority side. Useful for community-led brand work."},
+  think:["cai"],
+  meet:["Richard Pash, Chief Customer Officer UK & EMEA, Zurich Insurance","Aswin Peter, Senior Product Lead, British Gas","Tim Lawless, Digital AI Enablement Lead, E.ON Next","Charlotte Ford, Brand, Content & Partnerships Senior Director, Monzo","Tom Daniell, Chief Marketing Officer, Hastings Direct","David Clyde, Group Brand Director, Lebara","Matthew Dijkstra, Chief Customer Officer, Vitality","Aysara Yusupova, Head of Digital Channel Solutions Europe, Standard Chartered"],
+  ask:["Which partners already sit on my customer's journey and could embed my service?","How do we show trust and consent when data moves between companies?","Where do customers meet friction between my service and a partner's, and who fixes it?"]},
+
+ {id:"media",label:"Media, advertising & retail media",blurb:"Agencies, retail media networks and ad tech working out how commerce and media systems link up.",
+  p:{w2:["w2b","GoPlaces on social commerce and brand halo. Look for how results get measured."],
+     w3:["w3a","Loyalty ecosystems across sectors. Shared data and rewards are the base for new media products."],
+     w4:["w4a","AI search is a new place to win attention. Ask how product claims get measured."],
+     w5:["w5b","Colin Lewis on the retail media opportunity for brands, advertisers and retailers."],
+     w6:["w6b","The core session. Publicis, Kevel, Worten and Trainline Media on retail media as a cross-sector system."],
+     w7:["w7b","Dentsu X, Moonbug and Essity on turning content into transactions."],
+     u2:["t2b","Auto Trader on journey-based growth across connected sectors. Look for the media opportunity along a journey."],
+     u3:["t3b","Subscription lessons from media. Useful for publishers and platforms planning paid tiers."],
+     u4:["t4a","Shoppable video from Storyly with a Sephora case study."],
+     u5:["t5b","The core session. Tesco Media and XEO360 on content and commerce, recorded as a live podcast."],
+     u6:["t6a","Trainline Media and Entain on impulsive action across screens. Look for how the media is measured."]},
+  o:{w1:"TikTok and Vevo sit on the panel. See how advertisers think about the in-home evening.",u1:"DAZN, SailGP and Unilever on fan spend. Relevant to sponsorship and content partnerships.",w8:"Who owns the customer when several businesses share one journey. Relevant to out-of-home and travel media.",u7:"Place and footfall from the place-owner side. Useful for local and out-of-home media."},
+  think:["cm","cai"],
+  meet:["Colin Lewis, Founder, Commerce Media Works","Ian Black, Managing Partner & Head of Retail Media, Publicis Media","Benjamin Thompson, VP of Business Strategy, Kevel","Ben Foulkes, Commerce Media Lead and Sales Director UK, Kevel","Parweez Molbocus, Head of Commerce, OMD EMEA","Andreas Preuer, RVP of Sales, Mirakl Ads","Hélène Trad, Group Retail Media & Data Monetisation Director, Kingfisher","Clare O'Brien, Associate Media Advisor, ISBA"],
+  ask:["Where does retail media money come from, and which sectors are new buyers?","How is performance measured when a customer moves between a retailer, a brand and a platform?","Which advertiser budgets move first when a new commerce media network launches?"]},
+
+ {id:"tech",label:"Technology & solution providers",blurb:"Platforms, data and AI providers looking for buyers, partners and proof points.",
+  p:{w2:["w2a","Just Eat on operating in an always-on economy. Listen for what a platform asks of its technology partners."],
+     w3:["w3b","Customer journeys across company boundaries, with Zurich Insurance and Auto Trader. Look for where systems break."],
+     w4:["w4a","XEO360 on product claims in AI search. A vendor session showing how a sponsor frames its offer."],
+     w5:["w5b","Retail media opportunity primer from Colin Lewis. Useful to hear how buyers frame the category."],
+     w6:["w6b","Kevel, Publicis and Worten on retail media across sectors. Look for the technology gaps."],
+     w7:["w7b","Canto, Essity and Dentsu X on content into transactions. Look for the content and asset workflow."],
+     u2:["t2b","Auto Trader on journey-based growth across connected sectors. Listen for buyer problems."],
+     u3:["t3a","easyJet, Butlin's and Forge Holiday Group on friction-free integration of services. A close look at integration pain."],
+     u4:["t4b","Cross-industry decisions on live signals. No speakers are listed yet."],
+     u5:["t5a","Identity as shared infrastructure. No speakers are listed yet."],
+     u6:["t6b","British Gas and easyJet on what the evidence shows about transformation. Listen for what buyers trust."]},
+  o:{w1:"The opening session. Listen for how buyers describe their customers.",u1:"Fan spend across sport, media and retail. Look for data and identity needs.",w8:"A case study in shared customers. Look for where data has to move between companies.",u7:"Place and footfall. A less common buyer group for technology providers."},
+  think:["cai","cm","mp"],
+  meet:["Alejandro Aparicio Rodriguez, Lead Data Scientist, AI & Innovation, Pandora","Tim Lawless, Digital AI Enablement Lead, E.ON Next","Dave Harrison, Global Director of Data & AI Stewardship & Delivery, Mars Snacking","Sarah Mathews, Group Responsible AI Manager, The Adecco Group","Anca Iordanescu, VP, Engineering and Store, IKEA","Reetam Ghosh, Director of Products, Ads Effectiveness, Delivery Hero"],
+  ask:["Which buyer problem here appears in more than one sector, and what does that say about my product?","Which client could stand next to me on a stage or on a stand?","Which hosted 1:1 meetings should I book before the event starts?"]},
+
+ {id:"place",label:"Place, culture & public sector",blurb:"Councils, town centres, cultural bodies and developers who bring customers and commerce together.",
+  p:{w2:["w2a","Just Eat on partner-led growth in an always-on economy. A platform view of local demand."],
+     w3:["w3a","Loyalty partnerships across hospitality, retail and travel. Look for models a town or district could use."],
+     w4:["w4b","DPD on out-of-home delivery and collection. Relevant to locker and collection points in town centres."],
+     w5:["w5a","TikTok on social and AI discovery. Relevant to how people find places."],
+     w6:["w6b","Trainline Media and Worten on audiences as a media product. Relevant to footfall data."],
+     w7:["w7a","Three brands from different categories on turning brand work into commercial results."],
+     u2:["t2b","Auto Trader on journey-based growth across connected sectors."],
+     u3:["t3a","Butlin's and easyJet on adding services around a visit. A model for destinations."],
+     u4:["t4b","Live signals such as weather and events in operational decisions. No speakers are listed yet."],
+     u5:["t5a","Identity as shared infrastructure. Relevant to shared passes and local schemes. No speakers are listed yet."],
+     u6:["t6a","Impulsive action across screens. Relevant to local offers and footfall."]},
+  o:{w1:"Context on how households spend an evening across food, streaming and social.",w8:"Airports are a place where several operators share one customer. A close parallel to a town centre.",u1:"Fan spend around sport and culture. Relevant to event days and stadium districts.",u7:"The core session. Camden, Greenwich and Vauxhall One on place, culture and commerce."},
+  think:[],
+  meet:["Zerritha Brown, Head of Culture, London Borough of Camden","Kaia Charles, Town Centre Manager, Royal Borough of Greenwich","Isobel Pickles, Marketing & Communications Manager, Vauxhall One","Justin Reid, Senior Director of Global Partnerships Solutions, Tripadvisor","David Norris, Chief Growth Officer, Holiday Extras"],
+  ask:["Which businesses draw people to my place, and how could they share offers?","What data about visits could I share, and with whom?","Which sector could add something to my place that we lack today?"]}
+];
+
+/* ---------- Data: role lenses (from the executive persona file) ---------- */
+var ROLES = [
+ {id:"ceo",label:"CEO",short:"CEO",blurb:"Strategic owner. Listens for where the market is going and which bets to back.",
+  kpis:"Revenue growth, market share against key competitors, a customer satisfaction signal such as NPS, and progress on strategic initiatives.",
+  s:{w1:"Shows who competes for one evening of spend. A good test of where your category sits.",
+     w2a:"Partner-led growth from a platform adding grocery and new verticals. Listen for what changed in the model, beyond the branding.",
+     w7a:"Three brands from different categories on how brand work turns into commercial results.",
+     w8:"Who owns the customer when several companies share one journey. A board-level partnership question.",
+     t2b:"Auto Trader's chief customer officer on growth across connected sectors, a view on where the market is heading.",
+     t5a:"Identity as shared infrastructure raises the question of who controls the customer relationship."},
+  q:["Who is winning the customer across sectors, and where do we stand?","Which partnership here could add customers without adding fixed cost?","Which of our current priorities would a rival say is already out of date?"]},
+ {id:"cmo",label:"CMO",short:"CMO",blurb:"Brand and demand owner. Listens for where attention goes, how discovery works and what turns it into sales.",
+  kpis:"Brand awareness and consideration, share of search and AI answers, conversion and return on ad spend, and customer acquisition cost and retention.",
+  s:{w1:"Where evening attention goes across food delivery, streaming and social. A map of who competes for your audience.",
+     w2b:"How a social shop drives sales and brand halo. Ask how the halo effect is measured.",
+     w4a:"Product claims shape how AI search describes your brand. Listen for what to change in your content.",
+     w5a:"TikTok on how social and AI reshape discovery and decisions. Central to any media plan.",
+     w5b:"The retail media opportunity for brands. Listen for what return on spend looks like.",
+     w7a:"Three brands from different categories on turning brand work into commercial results.",
+     w7b:"Content into transactions, with Dentsu X on the panel. Listen for how attribution works.",
+     t4a:"How Sephora closes the gap between scrolling and buying, presented by Storyly. A conversion case study.",
+     t5b:"Content and commerce across the shopper journey, with Tesco Media and XEO360, recorded live.",
+     t6a:"Impulsive action across screens. Listen for how in-the-moment media is measured."},
+  q:["Where does my next customer start looking today: social, search or an AI assistant?","Which partner could extend my reach without raising acquisition cost?","How do I show the commercial return of brand work to my CFO?"]},
+ {id:"cfo",label:"CFO",short:"CFO",blurb:"Financial steward. Listens for margin, payback and evidence of cause.",
+  kpis:"Gross margin trend, customer acquisition cost and payback, lifetime value to acquisition cost, and budget against actual.",
+  s:{w3a:"Shared loyalty has a cost and a value for each partner. Ask how they split both.",
+     w4b:"Delivery pricing and out-of-home options. Compare cost per order with the premium customers will pay.",
+     w5b:"The retail media opportunity, for anyone testing whether media income can lift margin.",
+     w6b:"Retail media as a commercial system. Listen for how revenue is shared and who carries the cost.",
+     t3b:"Subscription lessons from media. Listen for churn, payback and what keeps revenue steady.",
+     t6b:"Asks what the evidence shows about customer experience transformation, the question finance wants answered before funding it."},
+  q:["What does a new partner channel cost per customer once fees, incentives and returns are counted?","Which of these models shows payback inside twelve months?","Where is the evidence of cause, beyond correlation?"]},
+ {id:"cto",label:"CTO",short:"CTO",blurb:"Builder and technical risk manager. Listens for data, reliability and integration cost.",
+  kpis:"Uptime and reliability, time to recover from incidents, API performance, and security and data-sharing risk.",
+  s:{w3b:"Journeys that cross company boundaries depend on systems that hold up together. Listen for where they break.",
+     w4a:"Product claims and structured data decide how AI search reads your catalogue. A data quality question.",
+     t4b:"Live signals feeding operational decisions raise questions about data pipelines and latency.",
+     t5a:"Identity as shared infrastructure. Listen for the security and compliance exposure it creates.",
+     t6b:"What the evidence shows about transformation. Useful for judging which programmes deliver."},
+  q:["What has to be true in our data and APIs for a partner to plug in?","Where does a shared identity or data layer create security or compliance exposure?","Which of these ideas needs new platform capacity, and which can run on what we have?"]},
+ {id:"investor",label:"Investor",short:"Investor",blurb:"Capital allocator. Listens for growth quality, defensibility and unit economics.",
+  kpis:"Growth rate and its trend, gross margin direction, retention and churn, and share of addressable spend.",
+  s:{w3a:"Loyalty ecosystems can deepen retention. Ask how partners share value and whether it scales.",
+     w5b:"The retail media opportunity, a candidate new profit pool. Ask who funds it.",
+     w6b:"Retail media across sectors. Look for whether growth comes from new buyers or from existing budgets.",
+     w8:"Ownership of the customer in a shared journey is a question about defensibility.",
+     t2b:"Journey-based growth across connected sectors. Look for what gets stronger as it scales.",
+     t3b:"Subscription lessons. Listen for retention and churn, the numbers that show revenue quality."},
+  q:["Is growth coming from the core, from partners or from acquisition?","Which of these models gets stronger as it scales?","What would a sceptic call the biggest risk to this trajectory?"]},
+ {id:"chro",label:"CHRO",short:"CHRO",blurb:"People strategist. Listens for capability gaps, workload and leadership depth.",
+  kpis:"Attrition in critical roles, time to fill key roles, engagement trend, and leadership bench depth.",
+  s:{w2a:"Operating in an always-on economy changes how teams work. Listen for what it asks of people.",
+     w3b:"Cross-company journeys need people who work across organisations. A capability question.",
+     t2a:"Reckitt's head of capability building. The core session for anyone planning skills for always-on commerce.",
+     t6b:"What the evidence shows about transformation. Useful for judging the people side of change programmes."},
+  q:["Which skills do cross-sector partnerships demand that our teams lack today?","Where would these plans overload a team?","Who in our leadership bench could own a partner relationship?"]},
+ {id:"coo",label:"COO",short:"COO",blurb:"Execution engine. Listens for delivery, ownership and capacity.",
+  kpis:"On-time delivery, cost per order, process cycle time, and capacity use.",
+  s:{w3b:"Journeys across companies fail at the handover. Listen for who owns delivery of the whole.",
+     w4b:"DPD on out-of-home delivery. A direct view on cost and service.",
+     t2a:"Reckitt on organisational muscle for always-on commerce. Relevant to capacity and process.",
+     t3a:"Friction-free integration of services after the first sale. Listen for operational handovers.",
+     t4b:"Live signals feeding operational decisions. No speakers are listed yet.",
+     t6b:"What the evidence shows about transformation. Useful for choosing where to invest effort."},
+  q:["Who owns delivery of a joint offer when two companies are involved?","What would it take operationally to support the upper end of growth?","Where do customers feel our internal process failures?"]}
+];
+
+/* ---------- App ---------- */
+var SHORTT = {w1:"Friday Night Is the New Mall",w2a:"Always On Commerce Fireside",w2b:"TikTok Shop: Beyond the Basket",w3a:"Connected Loyalty Ecosystems",w3b:"Resilient Cross-Company Journeys",w4a:"Product Claims in AI Search",w4b:"Out of Home Delivery Offer",w5a:"Social and AI Reshape Discovery",w5b:"The Retail Media Opportunity",w6a:"Beyond the Wearable",w6b:"Retail Media Across Sectors",w7a:"Brand Disruption to Impact",w7b:"Turning Content into Transactions",w8:"Who Owns the Airport Customer",t1:"The Always-On Fan Economy",t2a:"Fundamentals First",t2b:"Journey-Based Growth Fireside",t3a:"Connected Commerce Beyond Booking",t3b:"Subscription Economy Lessons",t4a:"How Sephora Bridges the Gap",t4b:"Cross-Industry Decision-Making",t5a:"Identity as Shared Infrastructure",t5b:"Podcast Live: Content and Commerce",t6a:"Impulsive Action Across Screens",t6b:"CX Transformation: The Evidence",t7:"Placemaking Across Sectors"};
+SESS.forEach(function(s){ s.short = SHORTT[s.id] || s.title; });
+var TILE = {retail:"Retail & fashion",grocery:"Grocery & FMCG",travel:"Travel & transport",leisure:"Leisure & hospitality",health:"Health & beauty",entertainment:"Entertainment, sport & TV",services:"Finance, energy & telecoms",media:"Media & advertising",tech:"Technology & solutions",place:"Place & public sector"};
+var EG = {retail:"Kingfisher, Debenhams, H&M",grocery:"Tesco Media, Mars, Coop",travel:"easyJet, Eurostar, Tripadvisor",leisure:"Butlin's, Third Space, SailGP",health:"Holland & Barrett, Vitality",entertainment:"DAZN, Vevo, The Guardian",services:"Zurich, Monzo, British Gas",media:"Publicis, Kevel, OMD",tech:"Pandora, Mirakl Ads, Botify",place:"Camden, Greenwich, Vauxhall One"};
+var RSUB = {ceo:"Where the market is going",cmo:"Attention, discovery, brand to sales",cfo:"Margin, payback and proof",cto:"Data, reliability, integration",investor:"Growth quality and defensibility",chro:"Skills, workload, leadership depth",coo:"Delivery, ownership, capacity"};
+var CORE = {"retail": ["w4a", "w5a", "t4a", "w6b", "t5b"], "grocery": ["w2a", "w4b", "w5b", "w6b", "t5b", "t4b"], "travel": ["w3a", "w8", "t3a", "t6b", "t5a", "w5a"], "leisure": ["w6a", "t1", "t3a", "t4b", "t7", "w3a"], "health": ["w6a", "w3b", "w4a", "t4a", "t2a", "t5a"], "entertainment": ["w1", "t1", "w7b", "t3b", "t5b", "w5a"], "services": ["w3b", "w7a", "w6a", "t3a", "t5a", "t6b"], "media": ["w5b", "w6b", "t5b", "w7b", "t6a", "w4a"], "tech": ["w4a", "w6b", "w3b", "t4b", "t5a", "t6b"], "place": ["t7", "w8", "t4b", "t5a", "w6b", "t3a"]};
+var RTHINK = {ceo:[],cmo:["cm"],cfo:["mp","cm"],cto:["cai"],investor:["cm"],chro:["cai"],coo:["cai"]};
+var state = {sector:"", role:"", day:"wed", screen:"sector"};
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function byId(list,id){ for (var i=0;i<list.length;i++){ if (list[i].id===id) return list[i]; } return null; }
+function startOf(s){ return s.time.split("–")[0]; }
+function stageShort(s){ return s.stage.indexOf("Changemaker") === 0 ? "Changemaker" : "Gateway"; }
+function tierWord(k){ return k === "must" ? "Must see" : (k === "worth" ? "Worth your time" : "Optional"); }
+
+/* Score: a sector pick adds 2, a sector core session adds 2 more, a role lens note adds 3.
+   Within each day the three highest slots (score 3 or more) are Must see, the next two
+   (score 2 or more) are Worth your time, and the rest are Optional. */
+function choose(slotId, sector, role){
+  var list = SESS.filter(function(s){ return s.slot === slotId; });
+  var multi = list.length > 1, p = sector.p[slotId];
+  var scored = list.map(function(s){
+    var sc = 0, sp = !!(p && p[0] === s.id);
+    if (sp) sc += 2;
+    if (CORE[sector.id].indexOf(s.id) > -1) sc += 2;
+    if (role.s[s.id]) sc += 3;
+    if (!multi && sector.o && sector.o[slotId]) sc += 1;
+    return {s:s, sc:sc, sp:sp};
+  });
+  scored.sort(function(a,b){ return (b.sc - a.sc) || ((b.sp?1:0) - (a.sp?1:0)); });
+  return {top:scored[0], rest:scored.slice(1), multi:multi};
+}
+
+function buildPlan(sector, role){
+  var out = {};
+  ["wed","thu"].forEach(function(k){
+    var items = DAYS[k].items, chosen = {}, ranked = [], tiers = {}, rows = [];
+    items.forEach(function(it){ if (it.s) { var c = choose(it.s, sector, role); chosen[it.s] = c; ranked.push({id: it.s, sc: c.top.sc, sp: c.top.sp}); } });
+    ranked.sort(function(a,b){ return (b.sc - a.sc) || ((b.sp?1:0) - (a.sp?1:0)); });
+    ranked.forEach(function(r, i){ tiers[r.id] = (i < 3 && r.sc >= 3) ? "must" : ((i < 5 && r.sc >= 2) ? "worth" : "opt"); });
+    items.forEach(function(it){
+      if (it.b) { rows.push({b:true, t:it.t, txt:it.txt}); return; }
+      var c = chosen[it.s], s = c.top.s, p = sector.p[it.s], why = "", extra = "";
+      if (p && p[0] === s.id) why = p[1];
+      else if (!c.multi) why = (sector.o && sector.o[it.s]) || s.generic || "";
+      else if (role.s[s.id]) extra = "Chosen for your " + role.short + " lens";
+      rows.push({slot: it.s, c: c, kind: tiers[it.s], why: why, extra: extra});
+    });
+    out[k] = rows;
+  });
+  return out;
+}
+
+var REG_URL = "https://www.customerx.net/registration-ticket-types";
+function personHTML(p){
+  var a = p.split("|");
+  return '<li><b>' + esc(a[0]) + '</b>' + (a[1] ? ', ' + esc(a[1]) : '') + (a[2] ? ', ' + esc(a[2]) : '') + '</li>';
+}
+function peopleHTML(s){
+  var h = '<div class="ppl">';
+  if (s.chair) h += '<b class="pl">Chair</b><ul>' + personHTML(s.chair) + '</ul>';
+  if (s.sp && s.sp.length) h += '<b class="pl">' + (s.sp.length > 1 ? 'Speakers' : 'Speaker') + '</b><ul>' + s.sp.map(personHTML).join("") + '</ul>';
+  if (!s.chair && !(s.sp && s.sp.length)) h += '<p class="who">Speakers not yet announced.</p>';
+  return h + '</div>';
+}
+function linksHTML(s){
+  return '<div class="lks"><a class="lk" href="' + s.url + '" target="_blank" rel="noopener">View in agenda</a><a class="lk reg2" href="' + REG_URL + '" target="_blank" rel="noopener">Register</a></div>';
+}
+
+function rowHTML(r, role){
+  var s = r.c.top.s, rn = role.s[s.id];
+  var h = '<div class="row ' + r.kind + '"><button type="button" class="rowbtn" data-act="row" aria-expanded="false">'
+    + '<span class="rt">' + esc(startOf(s)) + '</span><i class="mk" aria-hidden="true"></i>'
+    + '<span class="rb"><span class="rtitle">' + esc(s.short) + '</span><span class="rsub">' + (r.kind === "must" ? "Must see" : esc(stageShort(s)) + (r.kind === "worth" ? " &middot; Worth your time" : " &middot; Optional")) + '</span></span><span class="chev" aria-hidden="true"></span></button>'
+    + '<div class="rdet" hidden><h3>' + esc(s.title) + '</h3><p class="who">' + esc(s.stage) + ', ' + esc(s.time) + (s.tag ? ' &middot; ' + esc(s.tag) : '') + '</p>' + peopleHTML(s) + linksHTML(s);
+  if (r.extra) h += '<p class="note">' + esc(r.extra) + '</p>';
+  if (r.why) h += '<p>' + esc(r.why) + '</p>';
+  if (rn) h += '<p class="role"><b>' + esc(role.short) + ' lens</b>' + esc(rn) + '</p>';
+  if (s.note) h += '<p class="note">' + esc(s.note) + '</p>';
+  if (r.kind === "opt") h += '<p class="note">Lower priority for you. A good slot for a 1:1 meeting or the show floor.</p>';
+  if (r.c.rest.length) h += '<div class="also"><b>Also at this time</b>' + r.c.rest.map(function(x){ return '<p>' + esc(x.s.short) + ' <span class="who">(' + esc(stageShort(x.s)) + ', ' + esc(x.s.time) + ')</span></p>'; }).join("") + '</div>';
+  return h + '</div></div>';
+}
+
+function renderPlan(){
+  var sector = byId(SECTORS, state.sector), role = byId(ROLES, state.role);
+  var P = buildPlan(sector, role), rows = P[state.day];
+  $("planHead").textContent = TILE[sector.id] + " as a " + role.label;
+  var mustN = 0, worthN = 0;
+  rows.forEach(function(r){ if (!r.b) { if (r.kind === "must") mustN++; if (r.kind === "worth") worthN++; } });
+  $("dayLine").textContent = mustN + " must-see and " + worthN + " worth your time. Tap a session for the detail.";
+  var segs = document.querySelectorAll(".seg button");
+  for (var i = 0; i < segs.length; i++) segs[i].setAttribute("aria-pressed", segs[i].getAttribute("data-v") === state.day ? "true" : "false");
+  $("timeline").innerHTML = rows.map(function(r){
+    if (r.b) return '<div class="brk"><span class="rt">' + r.t + '</span><span>' + esc(r.txt) + '</span></div>';
+    return rowHTML(r, role);
+  }).join("");
+  $("meet").innerHTML = sector.meet.map(function(m){ return '<li>' + esc(m) + '</li>'; }).join("") + '<li><small>From the speaker list on customerx.net. Check the programme for where each person appears.</small></li>';
+  $("ask").innerHTML = '<li><small>Numbers a ' + esc(role.short) + ' might listen for: ' + esc(role.kpis) + '</small></li>' + role.q.concat(sector.ask).map(function(q){ return '<li>' + esc(q) + '</li>'; }).join("");
+  var tanks = sector.think.slice();
+  (RTHINK[role.id] || []).forEach(function(t){ if (tanks.indexOf(t) < 0) tanks.push(t); });
+  var tailored = tanks.length > 0;
+  if (!tailored) tanks = ["cm","cai","mp"];
+  $("think").innerHTML = tanks.map(function(id){
+    var t = TANKS[id], lines = [];
+    t.wed.forEach(function(x){ lines.push("Wed " + x); });
+    t.thu.forEach(function(x){ lines.push("Thu " + x); });
+    return '<div class="tt"><strong><a href="' + t.url + '" target="_blank" rel="noopener">' + esc(t.name) + '</a></strong><small>' + esc(t.by) + '</small><ul>' + lines.map(function(l){ return '<li>' + esc(l) + '</li>'; }).join("") + '</ul></div>';
+  }).join("") + '<small>' + (tailored ? 'Suggested for your sector and role. ' : 'Open to anyone who applies. ') + '40 seats each, applied for on the ticket page. Think tank hours overlap the open stage sessions, so choose one or the other for each hour.</small>';
+}
+
+function renderCard(){
+  var sector = byId(SECTORS, state.sector), role = byId(ROLES, state.role), P = buildPlan(sector, role);
+  function dayList(k){
+    return P[k].filter(function(r){ return !r.b && r.kind === "must"; }).map(function(r){
+      var s = r.c.top.s;
+      return '<li><span>' + esc(startOf(s)) + '</span><b>' + esc(s.short) + '<em>' + esc(stageShort(s)) + '</em></b></li>';
+    }).join("");
+  }
+  $("shareCard").innerHTML = '<div class="sc"><div class="sc-top"><div><div class="kicker">My CustomerX 2026 plan</div><div class="sc-h">' + esc(TILE[sector.id]) + '</div><div class="sc-s">as a ' + esc(role.label) + '</div></div><img class="sc-logo" src="' + LOGO + '" alt="CustomerX"></div>'
+    + '<div class="sc-days"><div><div class="sc-dh">Wed 14 October</div><ul>' + dayList("wed") + '</ul></div><div><div class="sc-dh">Thu 15 October</div><ul>' + dayList("thu") + '</ul></div></div>'
+    + '<div class="sc-foot"><span>Olympia London &middot; 14 and 15 Oct</span><span>Register: customerx.net</span></div></div>';
+}
+
+function renderSlides(){
+  var sector = byId(SECTORS, state.sector), role = byId(ROLES, state.role), P = buildPlan(sector, role);
+  var N = 5;
+  function frame(n, body, cls){
+    return '<div class="sl-wrap"><p class="sl-cap">Slide ' + n + ' of ' + N + '</p><div class="slide"><div class="sl-in ' + (cls || "") + '">' + body + '</div><div class="sl-foot"><span>CustomerX 2026 &middot; Olympia London &middot; 14 and 15 Oct</span><span>Register: customerx.net</span></div></div></div>';
+  }
+  function top(n){ return '<div class="sl-top"><img src="' + LOGO + '" alt="CustomerX"><span class="sl-n">' + n + ' / ' + N + '</span></div>'; }
+  function names(s){
+    var a = (s.sp || []).slice(0, 2).map(function(p){ var x = p.split("|"); return x[0] + (x[2] ? ", " + x[2] : ""); });
+    var more = (s.sp || []).length - 2;
+    return a.length ? ", with " + a.join("; ") + (more > 0 ? " and " + more + " more" : "") : "";
+  }
+  function day(k, n, label){
+    var rows = P[k].filter(function(r){ return !r.b && (r.kind === "must" || r.kind === "worth"); });
+    var m = rows.filter(function(r){ return r.kind === "must"; }).length;
+    return top(n) + '<div><div class="sl-k">My plan as a ' + esc(role.short) + '</div><div class="sl-h">' + label + '</div></div><p class="sl-p">' + m + ' must-see and ' + (rows.length - m) + ' worth your time</p><div class="sl-rows">' + rows.map(function(r){
+      var s = r.c.top.s;
+      return '<div class="sl-row"><b>' + esc(startOf(s)) + '</b><div><strong>' + esc(s.short) + '</strong><small><i>' + (r.kind === "must" ? "Must see" : "Worth your time") + '</i> &middot; ' + esc(stageShort(s)) + esc(names(s)) + '</small></div></div>';
+    }).join("") + '</div>';
+  }
+  var cover = '<div class="sl-top"><span class="sl-k">My CustomerX 2026 plan</span><span class="sl-n">1 / ' + N + '</span></div>'
+    + '<div><img class="sl-logo" src="' + LOGO + '" alt="CustomerX"><div class="sl-h">' + esc(TILE[sector.id]) + '</div><div class="sl-s">as a ' + esc(role.label) + '</div></div>'
+    + '<div class="sl-meta">Wednesday 14 and Thursday 15 October<br>Olympia London<br>Swipe for the sessions I will not miss</div>';
+  var ppl = top(4) + '<div><div class="sl-k">Before I go</div><div class="sl-h">People to find and questions to ask</div></div>'
+    + '<div class="sl-sec">People to find</div><ul class="sl-list">' + sector.meet.slice(0, 3).map(function(m){ return '<li>' + esc(m) + '</li>'; }).join("") + '</ul>'
+    + '<div class="sl-sec">Questions to ask</div><ul class="sl-list">' + role.q.slice(0, 1).concat(sector.ask.slice(0, 2)).map(function(q){ return '<li>' + esc(q) + '</li>'; }).join("") + '</ul>';
+  var tanks = sector.think.slice();
+  (RTHINK[role.id] || []).forEach(function(t){ if (tanks.indexOf(t) < 0) tanks.push(t); });
+  var tt = tanks.length ? '<div class="sl-sec">Closed-door think tanks for me</div><ul class="sl-list">' + tanks.slice(0, 3).map(function(id){ return '<li>' + esc(TANKS[id].name) + ', ' + esc(TANKS[id].by) + '</li>'; }).join("") + '</ul><p class="sl-p">40 seats each, applied for on the ticket page.</p>' : '';
+  var last = top(5) + '<div><div class="sl-k">See you there</div><div class="sl-h">Plan your own day</div></div>' + tt
+    + '<p class="sl-p">Doors open at 8:30. The show floor and 1:1 meetings run alongside the sessions, so leave room for them.</p><div class="sl-rows"></div><div class="sl-cta">Register for CustomerX 2026<small>customerx.net/registration-ticket-types</small></div>';
+  $("slideList").innerHTML = frame(1, cover, "sl-cover") + frame(2, day("wed", 2, "Wednesday 14 October")) + frame(3, day("thu", 3, "Thursday 15 October")) + frame(4, ppl) + frame(5, last);
+}
+
+function show(screen){
+  state.screen = screen;
+  ["sector","role","plan","card","slides"].forEach(function(n){ $("s-" + n).hidden = (n !== screen); });
+  document.querySelector(".app").className = "app" + (screen === "slides" ? " wide" : "");
+  $("back").hidden = (screen === "sector");
+  var on = {sector:0, role:1, plan:2, card:2, slides:2}[screen], d = $("dots").children;
+  for (var i = 0; i < d.length; i++) d[i].className = i <= on ? "on" : "";
+  if (screen === "plan") renderPlan();
+  if (screen === "card") renderCard();
+  if (screen === "slides") renderSlides();
+  try { history.replaceState(null, "", "#" + (state.sector && state.role && (screen === "plan" || screen === "card" || screen === "slides") ? state.sector + "-" + state.role + (screen === "card" ? "-card" : (screen === "slides" ? "-slides" : "")) : "")); } catch (e) {}
+  try { window.scrollTo(0, 0); } catch (e) {}
+}
+
+function drawTiles(){
+  $("sectorTiles").innerHTML = SECTORS.map(function(s){ return '<button type="button" class="tile' + (state.sector === s.id ? ' sel' : '') + '" data-act="sector" data-v="' + s.id + '"><b>' + esc(TILE[s.id]) + '</b><span>' + esc(EG[s.id]) + '</span></button>'; }).join("");
+  $("roleTiles").innerHTML = ROLES.map(function(r){ return '<button type="button" class="tile' + (state.role === r.id ? ' sel' : '') + '" data-act="role" data-v="' + r.id + '"><b>' + esc(r.label) + '</b><span>' + esc(RSUB[r.id]) + '</span></button>'; }).join("");
+}
+
+document.addEventListener("click", function(e){
+  var t = e.target.closest ? e.target.closest("[data-act]") : null;
+  if (!t) return;
+  var act = t.getAttribute("data-act"), v = t.getAttribute("data-v");
+  if (act === "sector") { state.sector = v; drawTiles(); $("roleHead").textContent = "Which role in " + TILE[v] + "?"; show("role"); }
+  else if (act === "role") { state.role = v; drawTiles(); state.day = "wed"; show("plan"); }
+  else if (act === "day") { state.day = v; renderPlan(); }
+  else if (act === "row") { var d = t.nextElementSibling; d.hidden = !d.hidden; t.setAttribute("aria-expanded", d.hidden ? "false" : "true"); }
+  else if (act === "card") show("card");
+  else if (act === "slides") show("slides");
+  else if (act === "copyprompt") { var m = $("copyMsg"); try { navigator.clipboard.writeText($("aiPrompt").textContent).then(function(){ m.textContent = "Copied."; }, function(){ m.textContent = "Select the text and copy it."; }); } catch (x) { m.textContent = "Select the text and copy it."; } }
+  else if (act === "plan") show("plan");
+  else if (act === "chsector") show("sector");
+  else if (act === "chrole") show("role");
+  else if (act === "back") show((state.screen === "card" || state.screen === "slides") ? "plan" : (state.screen === "plan" ? "role" : "sector"));
+});
+
+$("tag").src = TAG; $("hero").src = LOGO;
+drawTiles();
+(function(){
+  try {
+    var h = (location.hash || "").replace("#", "").split("-");
+    if (h.length >= 2 && byId(SECTORS, h[0]) && byId(ROLES, h[1])) {
+      state.sector = h[0]; state.role = h[1]; drawTiles();
+      $("roleHead").textContent = "Which role in " + TILE[h[0]] + "?";
+      show(h[2] === "card" ? "card" : (h[2] === "slides" ? "slides" : "plan"));
+      return;
+    }
+  } catch (e) {}
+  show("sector");
+})();
+</script>
+
+</body>
+</html>
